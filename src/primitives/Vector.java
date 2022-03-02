@@ -27,12 +27,14 @@ public class Vector extends Point {
     }
 
     public Vector crossProduct(Vector v2) {
-        return new Vector(xyz);
+        return new Vector(this.xyz.d2*v2.xyz.d3-this.xyz.d3*v2.xyz.d2,this.xyz.d3*v2.xyz.d1-this.xyz.d1*v2.xyz.d3,this.xyz.d1*v2.xyz.d2-this.xyz.d2*v2.xyz.d1);
     }
 
     public Vector normalize() {
         return new Vector(xyz.reduce(length()));
     }
+
+    public Vector scale(double sclr){ return new Vector(xyz.scale(sclr)); }
 
     @Override
     public boolean equals(Object o) {

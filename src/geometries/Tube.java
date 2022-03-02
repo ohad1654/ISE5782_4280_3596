@@ -1,24 +1,26 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
-public class Sphere implements Geometry {
-    private final Point center;
+public class Tube implements Geometry
+{
+    private final Ray axisRay;
     private final double radius;
-
-    public Sphere(Point center, double radius) {
-        this.center = center;
-        this.radius = radius;
-    }
 
     @Override
     public Vector getNormal(Point point) {
         return null;
     }
 
-    public Point getCenter() {
-        return center;
+    public Tube(Ray axisRay, double radius) {
+        this.axisRay = axisRay;
+        this.radius = radius;
+    }
+
+    public Ray getAxisRay() {
+        return axisRay;
     }
 
     public double getRadius() {
@@ -27,9 +29,10 @@ public class Sphere implements Geometry {
 
     @Override
     public String toString() {
-        return "Sphere{" +
-                "center=" + center +
+        return "Tube{" +
+                "axisRay=" + axisRay +
                 ", radius=" + radius +
                 '}';
-    }
+ }
+
 }
