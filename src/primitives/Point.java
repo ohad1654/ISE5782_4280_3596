@@ -1,6 +1,5 @@
 package primitives;
 
-import java.util.Objects;
 
 public class Point {
     protected final Double3 xyz;
@@ -12,10 +11,6 @@ public class Point {
         this.xyz=xyz;
     }
 
-    public Double3 getXyz() {
-        return xyz;
-    }
-
     public Point add(Vector vector) {
         return new Point(xyz.add(vector.xyz));
     }
@@ -24,13 +19,22 @@ public class Point {
         return new Vector(xyz.subtract(point.xyz));
     }
 
+    public double distanceSquared(Point point)
+    {
+        return point.xyz.d1*this.xyz.d1+point.xyz.d2*this.xyz.d2+point.xyz.d3*this.xyz.d3;
+    }
+    public double distance(Point point)
+    {
+        return Math.sqrt(distanceSquared(point));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
+        if(!(o instanceof Point)) return false;
 
-        Point point = (Point) o;
-
+        Point point =(Point) o;
         return xyz.equals(point.xyz);
     }
 
