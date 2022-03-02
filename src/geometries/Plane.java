@@ -29,4 +29,12 @@ public class Plane implements Geometry{
     public Vector getNormal(Point point) {
         return normal;
     }
+
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "q0=" + q0 +
+                ", normal=" + normal +
+                '}';
+    }
 }
