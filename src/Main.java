@@ -3,6 +3,8 @@ import static java.lang.System.out;
 import static primitives.Util.*;
 
 /**
+ * Ohad Schwarz ohadsc123@gmail.com 326004280
+ * Oz Diei dihi@yatmal.co.il 326683596
  * Test program for the 1st stage
  *
  * @author Dan Zilberstein
