@@ -12,6 +12,10 @@ public class Vector extends Point {
         if (xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("You cant create vector 0");
     }
+    public Vector add(Vector v2)
+    {
+        return new Vector(this.xyz.add(v2.xyz));
+    }
 
     public double lengthSquared() {
         return xyz.d1 * xyz.d1 + xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3;
