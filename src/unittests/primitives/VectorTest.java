@@ -1,6 +1,7 @@
-package primitives;
+package unittests.primitives;
 
 import org.junit.jupiter.api.Test;
+import primitives.Vector;
 
 import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,10 +18,8 @@ class VectorTest {
 
         // =============== Boundary Values Tests ==================
         assertEquals(new Vector(2, 0, 0).add(new Vector(2, 0, 0)),new Vector(4, 0, 0) , "ERROR: add vector same  worng value");
-        try {
-            new Vector(2, 0, 0).add(new Vector(-2, 0, 0));
-            fail("ERROR: add opposite vectors return zero vector");
-        }catch (Exception e){}
+        assertThrows(IllegalArgumentException.class,()->new Vector(2, 0, 0).add(new Vector(-2, 0, 0)),"ERROR: add opposite vectors return zero vector");
+
         assertEquals(new Vector(2, 0, 0).add(new Vector(-4, 0, 0)),new Vector(-2, 0, 0) , "ERROR: add opposite vectors  worng value");
         assertEquals(new Vector(2, 0, 0).add(new Vector(1, 0, 0)),new Vector(3, 0, 0) , "ERROR: add parallel vectors  worng value");
         assertEquals(new Vector(1, 0, 0).add(new Vector(0, 0, 1)),new Vector(1, 0, 1) , "ERROR: add orthogonal vectors  worng value");
@@ -34,10 +33,7 @@ class VectorTest {
 
         // =============== Boundary Values Tests ==================
         assertEquals(new Vector(2, 0, 0).subtract(new Vector(-2, 0, 0)),new Vector(4, 0, 0) , "ERROR: subtract vector same  worng value");
-        try {
-            new Vector(2, 0, 0).subtract(new Vector(2, 0, 0));
-            fail("ERROR: subtract opposite vectors return zero vector");
-        }catch (Exception e){}
+        assertThrows(IllegalArgumentException.class,()->new Vector(2, 0, 0).subtract(new Vector(2, 0, 0)),"ERROR: subtract opposite vectors return zero vector");
         assertEquals(new Vector(2, 0, 0).subtract(new Vector(4, 0, 0)),new Vector(-2, 0, 0) , "ERROR: subtract opposite vectors  worng value");
         assertEquals(new Vector(2, 0, 0).subtract(new Vector(-1, 0, 0)),new Vector(3, 0, 0) , "ERROR: subtract parallel vectors  worng value");
         assertEquals(new Vector(1, 0, 0).subtract(new Vector(0, 0, -1)),new Vector(1, 0, 1) , "ERROR: subtract orthogonal vectors  worng value");
@@ -46,16 +42,12 @@ class VectorTest {
     @Test
     public void testScaling() {
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(new Vector(2, 0, 0).scale(2),new Vector(4, 0, 0) , "ERROR: scale by positive worng value");
-        assertEquals(new Vector(2, 0, 0).scale(-2),new Vector(-4, 0, 0) , "ERROR: scale by negative worng value");
+        assertEquals(new Vector(2, 0, 0).scale(2), new Vector(4, 0, 0), "ERROR: scale by positive worng value");
+        assertEquals(new Vector(2, 0, 0).scale(-2), new Vector(-4, 0, 0), "ERROR: scale by negative worng value");
 
         // =============== Boundary Values Tests ==================
-        try {
-            new Vector(2, 0, 0).scale(0);
-            fail("ERROR: scale by 0 return zero vector");
-        }catch (Exception e){}
+        assertThrows(IllegalArgumentException.class, () -> new Vector(2, 0, 0).scale(0), "ERROR: scale by 0 return zero vector");
     }
-
     @Test
     public void testDotProduct() {
         // ============ Equivalence Partitions Tests ==============
@@ -104,14 +96,9 @@ class VectorTest {
         assertEquals(new Vector(2, 0, 0).crossProduct(new Vector(-2, -1, 0)),new Vector(0,0,-2) , "ERROR: crossProduct vector Obtuse angle worng value");
 
         // =============== Boundary Values Tests ==================
-        try {
-            new Vector(2, 0, 0).crossProduct(new Vector(-2, 0, 0));
-            fail("ERROR: crossProduct opposite vectors return zero vector");
-        }catch (Exception e){}
-        try {
-            new Vector(2, 0, 0).crossProduct(new Vector(2, 0, 0));
-            fail("ERROR: crossProduct same vectors return zero vector");
-        }catch (Exception e){}
+        assertThrows(IllegalArgumentException.class, () -> new Vector(2, 0, 0).crossProduct(new Vector(-2, 0, 0)), "ERROR: crossProduct opposite vectors return zero vector");
+        assertThrows(IllegalArgumentException.class, () -> new Vector(2, 0, 0).crossProduct(new Vector(2, 0, 0)),"ERROR: crossProduct same vectors return zero vector"); //
+
         assertEquals(new Vector(1, 0, 0).crossProduct(new Vector(0, 0, 1)),new Vector(0, -1, 0) , "ERROR: crossProduct orthogonal vectors  worng value");
     }
 

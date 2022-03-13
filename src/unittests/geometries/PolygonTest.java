@@ -1,5 +1,6 @@
-package geometries;
+package unittests.geometries;
 
+import geometries.Polygon;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Vector;

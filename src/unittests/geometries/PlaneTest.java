@@ -1,20 +1,20 @@
-package geometries;
+package unittests.geometries;
 
+import geometries.Plane;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SphereTest {
+class PlaneTest {
 
     @Test
     public void testGetNormal() {
-        Sphere sphere=new Sphere(new Point(0,0,0),1);
+        Plane plane=new Plane(new Point(0,0,0),new Point(1,0,0),new Point(0,1,0));
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        assertEquals(sphere.getNormal(new Point(1,0,0)),new Vector(1,0,0), "ERROR: Sphere Normal vector  worng value");
-
+        assertEquals(plane.getNormal(new Point(0,0,0)),new Vector(0,0,1) , "ERROR: Plane Normal vector  worng value");
     }
 
 
