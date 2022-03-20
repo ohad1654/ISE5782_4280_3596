@@ -20,22 +20,14 @@ public class GeometriesTests {
     {
 
 
-        Triangle triangle =new Triangle(new Point(0,0,0),new Point(1,0,0),new Point(0,1,0));
-        Sphere sphere = new Sphere(new Point(100,100,100),1);
-        Plane plane = new Plane(new Point(0,0,-100),new Point(0,1,-100),new Point(1,0,-100));
-        Geometries objects1 = new Geometries();
-        Geometries objects2 = new Geometries();
-        assertEquals(objects1.findIntersections(new Ray(new Point(0.2,0.2,-0.5),new Vector(0,0,1))), null, "ERROR: Geometries findIntersections empty objects wrong value");
-        assertEquals(objects2.findIntersections(new Ray(new Point(0.2,0.2,-0.5),new Vector(0,0,1))), null, "ERROR: Geometries findIntersections empty objects wrong value");
-
-
-        // ============ Equivalence Partitions Tests ==============
-        assertEquals(triangle.findIntersections(new Ray(new Point(0.2,0.2,-0.5),new Vector(0,0,1))), List.of(new Point(0.2,0.2,0)) , "ERROR: Triangle find intersectionsectens Ray cut wrong value");
-        assertNull(triangle.findIntersections(new Ray(new Point(1, 2, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray not cut wrong value");
-        assertNull(triangle.findIntersections(new Ray(new Point(-0.1, 1.3, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray not cut wrong value");
         // =============== Boundary Values Tests ==================
-        assertNull(triangle.findIntersections(new Ray(new Point(0, 0, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray cut on vertex wrong value");
-        assertNull(triangle.findIntersections(new Ray(new Point(0.5, 0.5, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray cut on rib wrong value");
-        assertNull(triangle.findIntersections(new Ray(new Point(2, 0, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray cut on corner wrong value");
+        Geometries objects1 = new Geometries();
+        Geometries objects2 = new Geometries(new Plane(new Point(0,0,-100),new Point(0,1,-100),new Point(1,0,-100)),new Sphere(new Point(100,100,100),1),new Triangle(new Point(0,0,10000),new Point(1,0,10000),new Point(0,1,10000)));
+        assertEquals(objects1.findIntersections(new Ray(new Point(0.2,0.2,-0.5),new Vector(0,0,1))), null, "ERROR: Geometries findIntersections empty objects wrong value");
+        assertEquals(objects2.findIntersections(new Ray(new Point(0,0,0),new Vector(1,0,0))), null, "ERROR: Geometries findIntersections no intersections objects wrong value");
+        assertEquals(objects2.findIntersections(new Ray(new Point(0,0,0),new Vector(0,0,-1))), 1, "ERROR: Geometries findIntersections one intersections objects wrong value");
+        // ============ Equivalence Partitions Tests ==============
+
+
     }
 }
