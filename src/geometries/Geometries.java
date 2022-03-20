@@ -14,12 +14,15 @@ public class Geometries implements Intersectable{
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
-        LinkedList<Point> intersectPoints = new LinkedList<>();
+        LinkedList<Point> intersectPoints=null;
         List<Point> shapePoint;
         for (Intersectable shape:shapes) {
             shapePoint=shape.findIntersections(ray);
-            if (shapePoint!=null)
+            if (shapePoint!=null) {
+                if (intersectPoints == null)
+                    intersectPoints = new LinkedList<>();
                 intersectPoints.addAll(shapePoint);
+            }
         }
         return intersectPoints;
     }

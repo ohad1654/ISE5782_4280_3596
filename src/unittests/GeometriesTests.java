@@ -22,11 +22,11 @@ public class GeometriesTests {
         Sphere sphere = new Sphere(new Point(0,0,0),2);
         Plane plane = new Plane(new Point(0,0,0),new Point(0,1,0),new Point(1,0,0));
         Geometries objects1 = new Geometries();
-        Geometries objects2 = new Geometries();
+        Geometries objects2 = new Geometries(new Plane(new Point(0,0,-100),new Point(0,1,-100),new Point(1,0,-100)),new Sphere(new Point(100,100,100),1),new Triangle(new Point(0,0,10000),new Point(1,0,10000),new Point(0,1,10000)));
         // =============== Boundary Values Tests ==================
-        assertEquals(objects1.findIntersections(new Ray(new Point(0.2,0.2,-0.5),new Vector(0,0,1))), null, "ERROR: Geometries findIntersections empty objects wrong value");
-        assertEquals(objects2.findIntersections(new Ray(new Point(0.2,0.2,-0.5),new Vector(0,0,1))), null, "ERROR: Geometries findIntersections empty objects wrong value");
-        assertEquals(objects2.findIntersections(new Ray(new Point(0,0,0),new Vector(0,0,-1))), 1, "ERROR: Geometries findIntersections one intersections objects wrong value");
+        assertNull(objects1.findIntersections(new Ray(new Point(0.2, 0.2, -0.5), new Vector(0, 0, 1))), "ERROR: Geometries findIntersections empty objects wrong value");
+        assertNull(objects2.findIntersections(new Ray(new Point(0, 0, 0), new Vector(1, 0, 0))), "ERROR: Geometries findIntersections empty objects wrong value");
+        assertEquals(objects2.findIntersections(new Ray(new Point(0,0,0),new Vector(0,0,-1))).size(), 1, "ERROR: Geometries findIntersections one intersections objects wrong value");
         assertEquals(new Geometries(triangle,plane,sphere).findIntersections(new Ray(new Point(0,0,1),new Vector(0,0,-1))).size(),3,"ERROR: geometries find intersectoins not all shapse inersacte, wrong value");
 
 
