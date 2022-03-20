@@ -37,5 +37,11 @@ public class GeometriesTests {
         assertNull(triangle.findIntersections(new Ray(new Point(0, 0, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray cut on vertex wrong value");
         assertNull(triangle.findIntersections(new Ray(new Point(0.5, 0.5, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray cut on rib wrong value");
         assertNull(triangle.findIntersections(new Ray(new Point(2, 0, -0.5), new Vector(0, 0, 1))), "ERROR: Triangle find intersectionsectens Ray cut on corner wrong value");
+
+        triangle=new Triangle(new Point(-1,-1,0),new Point(0,1,0),new Point(1,0,0));
+        plane=new Plane(new Point(0,0,0),new Point(0,1,0),new Point(1,0,0));
+        sphere=new Sphere(new Point(0,0,0),2);
+        assertEquals(new Geometries(triangle,plane,sphere).findIntersections(new Ray(new Point(0,0,1),new Vector(1,0,0))).size(),1,"ERROR: geometries find intersectoins not all shapse inersacte, wrong value");
+        assertEquals(new Geometries(triangle,plane,sphere).findIntersections(new Ray(new Point(0,0,1),new Vector(0,0,-1))).size(),3,"ERROR: geometries find intersectoins not all shapse inersacte, wrong value");
     }
 }
