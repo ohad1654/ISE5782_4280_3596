@@ -23,8 +23,8 @@ public class GeometriesTests {
         // =============== Boundary Values Tests ==================
         Geometries objects1 = new Geometries();
         Geometries objects2 = new Geometries(new Plane(new Point(0,0,-100),new Point(0,1,-100),new Point(1,0,-100)),new Sphere(new Point(100,100,100),1),new Triangle(new Point(0,0,10000),new Point(1,0,10000),new Point(0,1,10000)));
-        assertEquals(objects1.findIntersections(new Ray(new Point(0.2,0.2,-0.5),new Vector(0,0,1))), null, "ERROR: Geometries findIntersections empty objects wrong value");
-        assertEquals(objects2.findIntersections(new Ray(new Point(0,0,0),new Vector(1,0,0))), null, "ERROR: Geometries findIntersections no intersections objects wrong value");
+        assertNull(objects1.findIntersections(new Ray(new Point(0.2, 0.2, -0.5), new Vector(0, 0, 1))), "ERROR: Geometries findIntersections empty objects wrong value");
+        assertNull(objects2.findIntersections(new Ray(new Point(0, 0, 0), new Vector(1, 0, 0))), "ERROR: Geometries findIntersections no intersections objects wrong value");
         assertEquals(objects2.findIntersections(new Ray(new Point(0,0,0),new Vector(0,0,-1))), 1, "ERROR: Geometries findIntersections one intersections objects wrong value");
         // ============ Equivalence Partitions Tests ==============
 
