@@ -14,13 +14,13 @@ public class Camera {
     private double width;
     private double distance;
 
-    public Camera(Point position, Vector vUp, Vector vTo) {
+    public Camera(Point position, Vector vTo, Vector vUp) {
         if(!isZero(vUp.dotProduct(vTo)))
             throw new IllegalArgumentException("Vup and Vto must by orthogonal");
         this.position = position;
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
-        this.vRight=vUp.crossProduct(vTo).normalize();
+        this.vRight=vTo.crossProduct(vUp);
     }
 
     public Camera setVPSize(double width, double height){
@@ -34,7 +34,17 @@ public class Camera {
     }
 
     public Ray constructRay(int nX, int nY, int j, int i){
-        return null;
+        Point VPCenter=position.add(vTo.scale(distance));
+        double ratioY=height/nY;
+        double ratioX=width/nX;
+        double yI = alignZero(-(i-(double)(nY-1)/2))*ratioY;
+        double xJ = alignZero((j-(double)(nX-1)/2))*ratioX;
+        Point pixelIJ=VPCenter;
+        if (xJ!=0)
+            pixelIJ=pixelIJ.add(vRight.scale(xJ));
+        if (yI!=0)
+            pixelIJ=pixelIJ.add(vUp.scale(yI));
+        return new Ray(position,pixelIJ.subtract(position));
     }
 
     public Point getPosition() {
