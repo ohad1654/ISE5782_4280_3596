@@ -25,8 +25,16 @@ public class Ray {
         return q0.add(dir.scale(t));
     }
 
-    public Point findClosestPoint(List<Point> points){
-        return null;
+    public Point findClosestPoint(List<Point> points)
+    {
+        Point minDst = points.get(0);
+        double dst = 0;
+        for (Point point:points)
+        {
+            if(this.q0.distance(point) < dst)
+                minDst = point;
+        }
+        return minDst;
     }
 
     @Override

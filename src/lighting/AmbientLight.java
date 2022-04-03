@@ -10,13 +10,13 @@ public class AmbientLight
     {
         intensity = Color.BLACK;
     }
-    public AmbientLight(Color color, Double3 point)
+    public AmbientLight(Color color, Double3 rgb)
     {
-        intensity = getIntensity();
+        intensity = getIntensity(color,rgb);
     }
-    private Color getIntensity()
+    private Color getIntensity(Color color,Double3 point)
     {
-        return null;
+        return color.reduce(point);
     }
 
 }
