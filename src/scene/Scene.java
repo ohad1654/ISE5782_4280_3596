@@ -3,18 +3,11 @@ package scene;
 import geometries.Geometries;
 import lighting.AmbientLight;
 import primitives.Color;
-import primitives.Double3;
-import primitives.Point;
-
-import java.awt.*;
 
 public class Scene {
     public final String sceneName;
     public Color background;
     public AmbientLight ambientLight;
-
-
-
     public Geometries geometries;
 
     public Scene(String sceneName) {

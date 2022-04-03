@@ -2,6 +2,8 @@ package renderer;
 
 import primitives.*;
 
+import java.util.MissingResourceException;
+
 import static primitives.Util.*;
 
 
@@ -34,6 +36,17 @@ public class Camera {
         this.distance=distance;
         return this;
     }
+
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return this;
+    }
+
 
     public Ray constructRay(int nX, int nY, int j, int i){
         Point VPCenter=position.add(vTo.scale(distance));
@@ -77,23 +90,40 @@ public class Camera {
         return distance;
     }
 
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
-    }
-
-    public Camera setRayTracer(RayTracerBase rayTracer) {
-        this.rayTracer = rayTracer;
-        return this;
-    }
 
     public void renderImage() {
+        if (position==null)
+            throw new MissingResourceException("Error missing resource in camera","Camera","position");
+        if (vUp==null)
+            throw new MissingResourceException("Error missing resource in camera","Camera","vUp");
+        if (vTo==null)
+            throw new MissingResourceException("Error missing resource in camera","Camera","vTo");
+        if (height==0)
+            throw new MissingResourceException("Error missing resource in camera","Camera","height");
+        if (width==0)
+            throw new MissingResourceException("Error missing resource in camera","Camera","width");
+        if (distance==0)
+            throw new MissingResourceException("Error missing resource in camera","Camera","distance");
+        if (imageWriter==null)
+            throw new MissingResourceException("Error missing resource in camera","Camera","imageWriter");
+        if (rayTracer==null)
+            throw new MissingResourceException("Error missing resource in camera","Camera","rayTracer");
+
+        for (int i = 0; i < imageWriter.getNy(); i++) {
+            for (int j = 0; j < imageWriter.getNx(); j++) {
+                Ray ray=constructRay(imageWriter.getNx(),imageWriter.getNy(),j,i);
+                imageWriter.writePixel(j,i,rayTracer.traceRay(ray));
+            }
+        }
+        throw new UnsupportedOperationException();
     }
 
     public void printGrid(int i, Color color) {
     }
 
     public void writeToImage() {
+        if (imageWriter==null)
+            throw new MissingResourceException("Error missing resource in camera","Camera","imageWriter");
         imageWriter.writeToImage();
     }
 }
