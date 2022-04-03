@@ -115,7 +115,6 @@ public class Camera {
                 imageWriter.writePixel(j,i,rayTracer.traceRay(ray));
             }
         }
-        throw new UnsupportedOperationException();
     }
 
     public void printGrid(int interval, Color color)
