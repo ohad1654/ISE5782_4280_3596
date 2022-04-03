@@ -27,14 +27,20 @@ public class Ray {
 
     public Point findClosestPoint(List<Point> points)
     {
-        Point minDst = points.get(0);
-        double dst = 0;
+        if(points.size() == 0)
+            return null;
+        Point minPoint = points.get(0);
+        double minDst = Double.POSITIVE_INFINITY;
+        double tmpDst;
         for (Point point:points)
         {
-            if(this.q0.distance(point) < dst)
-                minDst = point;
+            tmpDst = this.q0.distance(point);
+            if(tmpDst < minDst) {
+                minPoint = point;
+                minDst = tmpDst;
+            }
         }
-        return minDst;
+        return minPoint;
     }
 
     @Override
