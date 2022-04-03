@@ -12,9 +12,6 @@ public class Scene {
     public final String sceneName;
     public Color background;
     public AmbientLight ambientLight;
-
-
-
     public Geometries geometries;
 
     public Scene(String sceneName) {
