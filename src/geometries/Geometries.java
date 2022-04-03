@@ -9,10 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Geometries implements Intersectable{
-    List<Intersectable> geometries;
+    private List<Intersectable> geometries;
     public Geometries(Intersectable... geometries)
     {
-        this.geometries = List.of(geometries);
+        this.geometries = new LinkedList(List.of(geometries));
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
