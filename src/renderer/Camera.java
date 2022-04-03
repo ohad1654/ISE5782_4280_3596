@@ -118,7 +118,17 @@ public class Camera {
         throw new UnsupportedOperationException();
     }
 
-    public void printGrid(int i, Color color) {
+    public void printGrid(int interval, Color color)
+    {
+        if(imageWriter == null)
+            throw new MissingResourceException("Error missing resource in camera","Camera","imageWriter");
+        for (int x = 0; x < imageWriter.getNx(); x++) {
+            for (int y = 0; y < imageWriter.getNy(); y++) {
+                if (x%(imageWriter.getNx()/interval)==0||y%(imageWriter.getNy()/interval)==0)
+                    imageWriter.writePixel(x,y,color);
+            }
+        }
+        imageWriter.writeToImage();
     }
 
     public void writeToImage() {
