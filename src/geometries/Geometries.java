@@ -3,20 +3,21 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Geometries implements Intersectable{
-    List<Intersectable> shapes;
+    List<Intersectable> geometries;
     public Geometries(Intersectable... geometries)
     {
-        shapes= List.of(geometries);
+        this.geometries = List.of(geometries);
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
         LinkedList<Point> intersectPoints=null;
         List<Point> shapePoint;
-        for (Intersectable shape:shapes) {
+        for (Intersectable shape: geometries) {
             shapePoint=shape.findIntersections(ray);
             if (shapePoint!=null) {
                 if (intersectPoints == null)
@@ -25,5 +26,9 @@ public class Geometries implements Intersectable{
             }
         }
         return intersectPoints;
+    }
+
+    public void add(Intersectable... geometries) {
+        Collections.addAll(this.geometries, geometries);
     }
 }

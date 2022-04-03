@@ -13,6 +13,8 @@ public class Camera {
     private double height;
     private double width;
     private double distance;
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracer;
 
     public Camera(Point position, Vector vTo, Vector vUp) {
         if(!isZero(vUp.dotProduct(vTo)))
@@ -73,5 +75,25 @@ public class Camera {
 
     public double getDistance() {
         return distance;
+    }
+
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return this;
+    }
+
+    public void renderImage() {
+    }
+
+    public void printGrid(int i, Color color) {
+    }
+
+    public void writeToImage() {
+        imageWriter.writeToImage();
     }
 }

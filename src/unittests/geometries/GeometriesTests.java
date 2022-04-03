@@ -27,7 +27,7 @@ public class GeometriesTests {
         assertNull(objects1.findIntersections(new Ray(new Point(0.2, 0.2, -0.5), new Vector(0, 0, 1))), "ERROR: Geometries findIntersections empty objects wrong value");
         assertNull(objects2.findIntersections(new Ray(new Point(0, 0, 0), new Vector(1, 0, 0))), "ERROR: Geometries findIntersections empty objects wrong value");
         assertEquals(objects2.findIntersections(new Ray(new Point(0,0,0),new Vector(0,0,-1))).size(), 1, "ERROR: Geometries findIntersections one intersections objects wrong value");
-        assertEquals(new Geometries(triangle,plane,sphere).findIntersections(new Ray(new Point(0,0,1),new Vector(0,0,-1))).size(),3,"ERROR: geometries find intersectoins not all shapse inersacte, wrong value");
+        assertEquals(3, new Geometries(triangle,plane,sphere).findIntersections(new Ray(new Point(0,0,1),new Vector(0,0,-1))).size(),"ERROR: geometries find intersectoins not all shapse inersacte, wrong value");
 
 
         // ============ Equivalence Partitions Tests ==============
