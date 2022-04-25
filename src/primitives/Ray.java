@@ -2,6 +2,7 @@ package primitives;
 
 import java.util.List;
 import java.util.Objects;
+import geometries.Intersectable.GeoPoint;
 
 public class Ray {
     private final Point q0;
@@ -25,22 +26,9 @@ public class Ray {
         return q0.add(dir.scale(t));
     }
 
-    public Point findClosestPoint(List<Point> points)
-    {
-        if(points.size() == 0)
-            return null;
-        Point minPoint = points.get(0);
-        double minDst = Double.POSITIVE_INFINITY;
-        double tmpDst;
-        for (Point point:points)
-        {
-            tmpDst = this.q0.distance(point);
-            if(tmpDst < minDst) {
-                minPoint = point;
-                minDst = tmpDst;
-            }
-        }
-        return minPoint;
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
     @Override
@@ -49,6 +37,23 @@ public class Ray {
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
         return q0.equals(ray.q0) && dir.equals(ray.dir);
+    }
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points)
+    {
+        if(points.size() == 0)
+            return null;
+        GeoPoint minPoint = points.get(0);
+        double minDst = Double.POSITIVE_INFINITY;
+        double tmpDst;
+        for (GeoPoint point:points)
+        {
+            tmpDst = this.q0.distance(point.point);
+            if(tmpDst < minDst) {
+                minPoint = point;
+                minDst = tmpDst;
+            }
+        }
+        return minPoint;
     }
 
     @Override
