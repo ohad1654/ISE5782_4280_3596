@@ -8,6 +8,8 @@ import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
+import static java.awt.Color.WHITE;
+
 public class RayTracerBasic extends RayTracerBase {
     public RayTracerBasic(Scene scene) {
         super(scene);
@@ -21,7 +23,12 @@ public class RayTracerBasic extends RayTracerBase {
         if(points == null)
             return scene.background;
         GeoPoint cosets = ray.findClosestGeoPoint(points);
-        return calcColor(cosets);
+        Color color = calcColor(cosets);
+        if (color != Color.BLACK && !color.equals(new Color(WHITE)))
+        {
+            int a=1;
+        }
+        return color;
     }
     private Color calcColor(GeoPoint point){
         return scene.ambientLight.getIntensity().add(point.geometry.getEmission());

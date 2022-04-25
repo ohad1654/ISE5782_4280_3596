@@ -29,9 +29,10 @@ public abstract class Intersectable {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof GeoPoint)) return false;
-            GeoPoint geoPoint = (GeoPoint) o;
-            return Objects.equals(geometry, geoPoint.geometry) && Objects.equals(point, geoPoint.point);
+            if (o == null) return false;
+            if (!(o instanceof Point)) return false;
+            GeoPoint other = (GeoPoint) o;
+            return this.point.equals(other.point) && this.geometry.equals(other.geometry);
         }
 
         @Override
