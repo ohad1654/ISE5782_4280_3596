@@ -91,7 +91,7 @@ public class Camera {
     }
 
 
-    public void renderImage() {
+    public Camera renderImage() {
         if (position==null)
             throw new MissingResourceException("Error missing resource in camera","Camera","position");
         if (vUp==null)
@@ -115,6 +115,7 @@ public class Camera {
                 imageWriter.writePixel(j,i,rayTracer.traceRay(ray));
             }
         }
+        return this;
     }
 
     public void printGrid(int interval, Color color)
