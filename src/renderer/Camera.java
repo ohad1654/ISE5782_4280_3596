@@ -18,6 +18,13 @@ public class Camera {
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
+
+    /**
+     * Create camera at the position, facing to VTo
+     * @param position the position of the camera
+     * @param vTo the direction the camera facing at
+     * @param vUp the direction of the up
+     */
     public Camera(Point position, Vector vTo, Vector vUp) {
         if(!isZero(vUp.dotProduct(vTo)))
             throw new IllegalArgumentException("Vup and Vto must by orthogonal");
@@ -27,11 +34,23 @@ public class Camera {
         this.vRight=vTo.crossProduct(vUp);
     }
 
+    /**
+     * set the view plane size
+     * @param width the width of the VP
+     * @param height thr height of the VP
+     * @return the updated camera with the VP (for builder)
+     */
     public Camera setVPSize(double width, double height){
         this.width=width;
         this.height=height;
         return this;
     }
+
+    /**
+     * set the view plain distance from the camera
+     * @param distance the distance from the camera
+     * @return the updated camera with the VP (for builder)
+     */
     public Camera setVPDistance(double distance){
         this.distance=distance;
         return this;
@@ -47,7 +66,14 @@ public class Camera {
         return this;
     }
 
-
+    /**
+     * create ray from the camera to the specific pixel at the view plane
+     * @param nX the number of pixels on X-axis
+     * @param nY the number of pixels on Y-axis
+     * @param j the pixel row number
+     * @param i the pixel column number
+     * @return the ray created
+     */
     public Ray constructRay(int nX, int nY, int j, int i){
         Point VPCenter=position.add(vTo.scale(distance));
         double ratioY=height/nY;
