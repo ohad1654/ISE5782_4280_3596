@@ -26,6 +26,11 @@ public class Ray {
         return q0.add(dir.scale(t));
     }
 
+    /**
+     * find coloset point to ray
+     * @param points    list
+     * @return  the coloset point
+     */
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
@@ -38,6 +43,12 @@ public class Ray {
         Ray ray = (Ray) o;
         return q0.equals(ray.q0) && dir.equals(ray.dir);
     }
+
+    /**
+     * find coloset Geoppoint to ray
+     * @param points    list
+     * @return  the coloset Geopoint
+     */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> points)
     {
         if(points.size() == 0)

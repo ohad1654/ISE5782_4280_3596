@@ -18,6 +18,12 @@ public class Triangle extends Polygon {
                 ", plane=" + plane +
                 '}';
     }
+
+    /**
+     * the intersection between the ray and the triangel
+     * @param ray a ray
+     * @return list of point
+     */
     @Override
     public List<Point> findIntersections(Ray ray)
     {
@@ -35,6 +41,11 @@ public class Triangle extends Polygon {
         else
             return null;
     }
+    /**
+     * the intersection between the ray and the triangel
+     * @param ray a ray
+     * @return list of GeoPoint
+     */
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> intersection = plane.findGeoIntersections(ray);
         if(intersection == null)

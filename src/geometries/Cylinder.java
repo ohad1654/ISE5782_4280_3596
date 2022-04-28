@@ -13,6 +13,11 @@ public class Cylinder extends  Tube
         this.hieght = hieght;
     }
 
+    /**
+     * the normal between point and the cylinder
+     * @param point the point
+     * @return  the normal vector
+     */
     @Override
     public Vector getNormal(Point point) {
         if(point.equals(getAxisRay().getQ0())|| point.subtract(getAxisRay().getQ0()).length()<getRadius()) //point at the top base

@@ -17,7 +17,11 @@ public class Sphere extends Geometry {
         this.center = center;
         this.radius = radius;
     }
-
+    /**
+     * return the vector between points
+     * @param point point
+     * @return vector
+     */
     @Override
     public Vector getNormal(Point point) {
         return point.subtract(center).normalize();
@@ -39,33 +43,11 @@ public class Sphere extends Geometry {
                 '}';
     }
 
-   /* @Override
-    public List<Point> findIntersections(Ray ray) {
-        if(ray.getQ0().equals(center))
-            return List.of(ray.getPoint(radius));
-
-        Vector u = center.subtract(ray.getQ0());
-        double tm = ray.getDir().dotProduct(u);
-        double d = alignZero(Math.sqrt(u.lengthSquared()-tm*tm));
-        if (d >= radius || u.dotProduct(ray.getDir())<0)
-            return null;
-
-        List<Point> points;
-        double th=Math.sqrt(radius*radius-d*d);
-        double t1 = alignZero(tm+th);
-        double t2= alignZero(tm-th);
-        if(t1 * t2 > 1)
-            points= new ArrayList<>(2);
-        else
-            points = new ArrayList<>(1);
-
-        if(t1 > 0)
-            points.add(ray.getPoint(t1));
-        if(t2 > 0)
-            points.add(ray.getPoint(t2));
-        return points;
-    }*/
-
+    /**
+     * the intersection between the ray and the triangel
+     * @param ray a ray
+     * @return list of GeoPoint
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if(ray.getQ0().equals(center))

@@ -83,16 +83,18 @@ public class Polygon extends Geometry {
 		}
 		size = vertices.length;
 	}
+	/**
+	 * the normal between point and the polygon
+	 * @param point the point
+	 * @return  the normal vector
+	 */
 
 	@Override
 	public Vector getNormal(Point point) {
 		return plane.getNormal();
 	}
 
-	/*@Override
-	public List<Point> findIntersections(Ray ray) {
-		return null;
-	}*/
+
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
