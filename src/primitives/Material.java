@@ -16,10 +16,6 @@ public class Material
         return this;
     }
 
-
-
-
-
     public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;

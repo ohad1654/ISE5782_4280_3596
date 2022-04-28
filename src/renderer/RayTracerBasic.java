@@ -42,19 +42,20 @@ public class RayTracerBasic extends RayTracerBase {
                 .add(calcLocalEffects(intersection, ray));
     }
     private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
+        Color color = Color.BLACK;
         Vector v = ray.getDir ();
         Vector n = intersection.geometry.getNormal(intersection.point);
         double nv = alignZero(n.dotProduct(v));
         if (nv == 0)
-            return Color.BLACK;
+            return color;
         Material material = intersection.geometry.getMaterial();
 
-        Color color = Color.BLACK;
 
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
-            if (nl * nv > 0) { // sign(nl) == sing(nv)
+            if (nl * nv > 0)
+            { // sign(nl) == sing(nv)
                 Color lightIntensity = lightSource.getIntensity(intersection.point);
                 color = color.add(lightIntensity.scale(calcDiffusive(material,nl)) ,
                       lightIntensity.scale( calcSpecular(material, n, l,nl ,v)));
@@ -65,12 +66,12 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
-        //first, we calc r, the specular vector
+
         double ln = l.dotProduct(n);
         Vector r = l.add(n.scale(-2*ln)).normalize();
         double vr = v.dotProduct(r);
 
-        //now we calc specular effect
+
         if(-vr > 0){
             double x = material.Ks*Math.pow((-1*vr),material.nShininess);
             return x;
