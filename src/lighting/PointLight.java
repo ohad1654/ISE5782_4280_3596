@@ -6,7 +6,7 @@ import primitives.Vector;
 
 public class PointLight extends Light implements LightSource
 {
-    private final Point position;
+    protected final Point position;
     private double Kc = 1, Kl = 0, Kq = 0;
 
 
@@ -59,5 +59,10 @@ public class PointLight extends Light implements LightSource
     @Override
     public Vector getL(Point p) {
         return p.subtract(position).normalize();
+    }
+
+    @Override
+    public double getDistance(Point point) {
+        return position.distance(point);
     }
 }

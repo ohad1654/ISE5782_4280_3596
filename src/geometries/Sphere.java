@@ -52,13 +52,11 @@ public class Sphere extends Geometry {
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if(ray.getQ0().equals(center))
             return List.of(new GeoPoint(this,ray.getPoint(radius)));
-
         Vector u = center.subtract(ray.getQ0());
         double tm = ray.getDir().dotProduct(u);
         double d = alignZero(Math.sqrt(u.lengthSquared()-tm*tm));
         if (d >= radius || u.dotProduct(ray.getDir())<0)
             return null;
-
         List<GeoPoint> points;
         double th=Math.sqrt(radius*radius-d*d);
         double t1 = alignZero(tm+th);
@@ -67,10 +65,9 @@ public class Sphere extends Geometry {
             points= new ArrayList<>(2);
         else
             points = new ArrayList<>(1);
-
-        if(t1 > 0)
+        if(t1 > 0 )
             points.add(new GeoPoint(this,ray.getPoint(t1)));
-        if(t2 > 0)
+        if(t2 > 0 )
             points.add(new GeoPoint(this,ray.getPoint(t2)));
         return points;    }
 }
