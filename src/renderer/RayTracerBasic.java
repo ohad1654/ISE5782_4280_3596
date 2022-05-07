@@ -15,6 +15,7 @@ public class RayTracerBasic extends RayTracerBase {
         super(scene);
     }
 
+    private static final double DELTA = 0.1;
 
     /**
      * find the point where the ray intersacte with object
@@ -40,13 +41,6 @@ public class RayTracerBasic extends RayTracerBase {
                 .add(intersection.geometry.getEmission())
                 .add(calcLocalEffects(intersection, ray));
     }
-
-    /**
-     * calculat the Local Effects
-     * @param intersection the point to calculate the color on
-     * @param ray the ray that 'looking' at the geometry
-     * @return the color of the point
-     */
     private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
         Color color = Color.BLACK;
         Vector v = ray.getDir ();
@@ -60,21 +54,20 @@ public class RayTracerBasic extends RayTracerBase {
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
-            if (nl * nv > 0) // sign(nl) == sing(nv)
-            {
-                Color lightIntensity = lightSource.getIntensity(intersection.point);
-                color = color.add(lightIntensity.scale(calcDiffusive(material,nl)) ,
-                      lightIntensity.scale( calcSpecular(material, n, l,nl ,v)));
+            if (nl * nv > 0)
+            { // sign(nl) == sing(nv)
+                if (unshaded(intersection, l,lightSource))
+                {
+                    Color iL = lightSource.getIntensity(intersection.point);
+                    color = color.add(iL.scale(calcDiffusive(material, nl)),
+                            iL.scale(calcSpecular(material, n, l, nl, v)));
+                }
             }
         }
 
         return color;
     }
 
-    /**
-     * calculate the Specular
-     * @return the Specular
-     */
     private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
 
         double ln = l.dotProduct(n);
@@ -95,6 +88,22 @@ public class RayTracerBasic extends RayTracerBase {
         if(nl < 0) //calc |nl|  --> abs(nl)
             nl = nl*-1;
         return material.Kd*nl;
+    }
+    private boolean unshaded(GeoPoint gp, Vector l,LightSource light) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Ray lightRay = new Ray(gp.point, lightDirection);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if(intersections == null)
+            return true ;
+        for (GeoPoint point: intersections)
+        {
+            if(point.point.distance(gp.point) < light.getDistance(gp.point))
+            {
+                return false;
+            }
+
+        }
+        return true;
     }
 }
 

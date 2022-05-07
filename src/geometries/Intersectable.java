@@ -7,7 +7,11 @@ import java.util.Objects;
 
 
 public abstract class Intersectable {
-
+    /**
+     * the intersection between the ray and the a gemotry
+     * @param ray a ray
+     * @return list of Point
+     */
     public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
@@ -46,10 +50,20 @@ public abstract class Intersectable {
 
 
     }
+    /**
+     * the intersection between the ray and a geometry
+     * @param ray a ray
+     * @return list of GeoPoint
+     */
     public List<GeoPoint> findGeoIntersections(Ray ray)
     {
         return findGeoIntersectionsHelper(ray);
     }
+    /**
+     * the intersection between the ray and a geometry
+     * @param ray a ray
+     * @return list of GeoPoint
+     */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
 

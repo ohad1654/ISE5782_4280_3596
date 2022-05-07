@@ -27,18 +27,38 @@ public class Point {
         return xyz.d3;
     }
 
+    /**
+     * add vector to point
+     * @param vector  vector
+     * @return  the new point
+     */
     public Point add(Vector vector) {
         return new Point(xyz.add(vector.xyz));
     }
-
+    /**
+     * subtract point from point
+     * @param point  the point
+     * @return  the new Vector
+     */
     public Vector subtract(Point point) {
         return new Vector(xyz.subtract(point.xyz));
     }
 
+    /**
+     * the distance Squared
+     * @param point points
+     * @return  the distance
+     */
     public double distanceSquared(Point point)
     {
         return (point.xyz.d1-this.xyz.d1)*(point.xyz.d1-this.xyz.d1) + (point.xyz.d2-this.xyz.d2)*(point.xyz.d2-this.xyz.d2) + (point.xyz.d3-this.xyz.d3)*(point.xyz.d3-this.xyz.d3);
     }
+
+    /**
+     * distance between points
+     * @param point the srcond ponts
+     * @return a double distance
+     */
     public double distance(Point point)
     {
         return Math.sqrt(distanceSquared(point));

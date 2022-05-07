@@ -6,6 +6,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.isZero;
+
 public class Plane extends Geometry{
     private final Point q0;
     private final Vector normal;
@@ -47,19 +49,12 @@ public class Plane extends Geometry{
                 '}';
     }
 
-   /* @Override
-    public List<Point> findIntersections(Ray ray)
-    {
-        if(this.q0.equals(ray.getQ0()))
-            return null;
-        if(this.normal.dotProduct(ray.getDir()) == 0)
-            return null;
-        double sclr = this.normal.dotProduct(this.q0.subtract(ray.getQ0()))/this.normal.dotProduct(ray.getDir());
-        if(sclr <=  0 )
-            return null;
-        return List.of(ray.getQ0().add(ray.getDir().scale(sclr)));
-    }*/
 
+    /**
+     * the intersection between the ray and the plane
+     * @param ray a ray
+     * @return list of GeoPoint
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if(this.q0.equals(ray.getQ0()))
@@ -67,7 +62,7 @@ public class Plane extends Geometry{
         if(this.normal.dotProduct(ray.getDir()) == 0)
             return null;
         double sclr = this.normal.dotProduct(this.q0.subtract(ray.getQ0()))/this.normal.dotProduct(ray.getDir());
-        if(sclr <=  0 )
+        if(sclr <=  0|| isZero(sclr) )
             return null;
         return List.of(new GeoPoint(this, ray.getQ0().add(ray.getDir().scale(sclr))));
     }

@@ -10,6 +10,11 @@ public class Tube extends Geometry
 {
     private final Ray axisRay;
     private final double radius;
+    /**
+     * the normal between point and the tube
+     * @param point the point
+     * @return  the normal vector
+     */
 
     @Override
     public Vector getNormal(Point point) {
