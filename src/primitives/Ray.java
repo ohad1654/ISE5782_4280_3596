@@ -5,6 +5,8 @@ import java.util.Objects;
 import geometries.Intersectable.GeoPoint;
 
 public class Ray {
+    private static final double DELTA = 0.1;
+
     private final Point q0;
     private final Vector dir;
 
@@ -12,6 +14,15 @@ public class Ray {
         this.q0 = q0;
         this.dir = dir.normalize();
     }
+
+    public Ray(Point q0, Vector dir, Vector normal){
+        if (dir.dotProduct(normal)>0)
+            this.q0=q0.add(normal.scale(DELTA));
+        else
+            this.q0=q0.add(normal.scale(-DELTA));
+        this.dir=dir;
+    }
+
 
     public Point getQ0() {
         return q0;
@@ -21,8 +32,7 @@ public class Ray {
         return dir;
     }
 
-    public Point getPoint(double t)
-    {
+    public Point getPoint(double t) {
         return q0.add(dir.scale(t));
     }
 
@@ -47,14 +57,15 @@ public class Ray {
     /**
      * find coloset Geoppoint to ray
      * @param points    list
-     * @return  the coloset Geopoint
+     * @return  the closet Geopoint
      */
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> points)
-    {
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
+        if (points ==null)
+            return null;
         if(points.size() == 0)
             return null;
         GeoPoint minPoint = points.get(0);
-        double minDst = Double.POSITIVE_INFINITY;
+            double minDst = Double.POSITIVE_INFINITY;
         double tmpDst;
         for (GeoPoint point:points)
         {
@@ -66,7 +77,6 @@ public class Ray {
         }
         return minPoint;
     }
-
     @Override
     public String toString() {
         return  "q0=" + q0 +
