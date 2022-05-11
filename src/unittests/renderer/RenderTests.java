@@ -99,14 +99,30 @@ public class RenderTests {
 				 ,new Polygon(new Point(0,0,0),new Point(0,10,0),new Point(0,10,10),new Point(0,0,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
 				,new Polygon(new Point(10,0,0),new Point(10,10,0),new Point(10,10,10),new Point(10,0,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
 				,new Polygon(new Point(0,10,0),new Point(10,10,0),new Point(10,10,10),new Point(0,10,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				//entry road
 				,new Polygon(new Point(4,-5,0.1),new Point(6,-5,0.1),new Point(6,-10,0.1),new Point(4,-10,0.1)).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-
-		);
-		scene.lights.add(new DirectionalLight(spCL, new Vector(0.3,-1,-0.5)));
+				//pol1
+				,new Polygon(Point.ZERO,new Point(0,0,6),new Point(10,0,6), new Point(10,0,0)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				//pol2
+				,new Polygon(new Point(0,0,8),new Point(0,0,10), new Point(10,0,10),new Point(10,0,8)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				//pol3
+				,new Polygon(new Point(0,0,6),new Point(0,0,8),new Point(2,0,8),new Point(2,0,6)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
+				//pol4
+				new Polygon(new Point(4,0,6),new Point(4,0,8),new Point(6,0,8),new Point(6,0,6)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
+				//pol5
+				new Polygon(new Point(8,0,6),new Point(8,0,8),new Point(10,0,8),new Point(10,0,6)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
+				//window1
+				new Polygon(new Point(2,0,6),new Point(2,0,8),new Point(4,0,8),new Point(4,0,6)).setMaterial(new Material().setKt(new Double3(1))),
+				//window2
+				new Polygon(new Point(6,0,6),new Point(6,0,8),new Point(8,0,8),new Point(8,0,6)).setMaterial(new Material().setKt(new Double3(1)))
+				);
+		scene.lights.add(new DirectionalLight(spCL, new Vector(10,20,-15)));
+		//scene.lights.add(new SpotLight(new Color(WHITE),new Point(5,0,5),new Vector(0,0,-1)));
 		Camera camera = new Camera(new Point(-10,-20,30), new Vector(24, 20, -24), new Vector(72,60 ,122)
+		//Camera camera = new Camera(new Point(5,5,30), new Vector(0, 0, -1), new Vector(0,1 ,0)
 		)
-				.setVPDistance(20) //
-				.setVPSize(30, 30) //
+				.setVPDistance(40) //
+				.setVPSize(40, 40) //
 				.setImageWriter(new ImageWriter("Home picture", 1000, 1000))
 				.setRayTracer(new RayTracerBasic(scene));
 
