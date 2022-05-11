@@ -91,7 +91,7 @@ public class RenderTests {
 		Scene scene = new Scene("Home")//
 				.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2))); //
 
-
+		Color brick = new Color(163,53,18);
 		scene.geometries.add( //
 				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(GREEN)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
 				//new Sphere(new Point(8,0,4),80).setEmission(new Color(BLUE))
@@ -115,9 +115,27 @@ public class RenderTests {
 				new Polygon(new Point(2,0,6),new Point(2,0,8),new Point(4,0,8),new Point(4,0,6)).setMaterial(new Material().setKt(new Double3(1))),
 				//window2
 				new Polygon(new Point(6,0,6),new Point(6,0,8),new Point(8,0,8),new Point(8,0,6)).setMaterial(new Material().setKt(new Double3(1)))
-				);
+				,new Polygon(new Point(0,0,0),new Point(10,0,0),new Point(10,0,10),new Point(0,0,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+
+				,new Polygon(new Point(2,0,0.1),new Point(8,0,0.1),new Point(8,-20,0.1),new Point(2,-20,0.1)).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+
+				,new Circle(new Point(17,-10,0.1),5,new Plane(new Point(0, 0, 0.1),new Vector(0, 0, 1))).setEmission(new Color(0,109,236)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(200))
+				,new Circle(new Point(17,-10,0.2),4,new Plane(new Point(0, 0, 0.2),new Vector(0, 0, 1))).setEmission(new Color(0,90,236)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(200))
+				,new Circle(new Point(17,-10,0.3),3,new Plane(new Point(0, 0, 0.3),new Vector(0, 0, 1))).setEmission(new Color(0,70,236)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(200))
+				,new Circle(new Point(17,-10,0.4),2,new Plane(new Point(0, 0, 0.4),new Vector(0, 0, 1))).setEmission(new Color(0,50,236)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(200))
+
+				,new Polygon(new Point(8,0,0.1),new Point(10,0,0.1),new Point(10,-20,0.1),new Point(8,-20,0.1)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(new Point(8,0,0.1),new Point(8,-20,0.1),new Point(8,-20,2),new Point(8,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(new Point(10,0,0.1),new Point(10,-20,0.1),new Point(10,-20,2),new Point(10,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(new Point(8,0,2),new Point(10,0,2),new Point(10,-20,2),new Point(8,-20,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+
+				,new Polygon(new Point(2,0,0.1),new Point(0,0,0.1),new Point(0,-20,0.1),new Point(2,-20,0.1)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(new Point(2,0,0.1),new Point(2,-20,0.1),new Point(2,-20,2),new Point(2,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(new Point(0,0,0.1),new Point(0,-20,0.1),new Point(0,-20,2),new Point(0,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(new Point(2,0,2),new Point(0,0,2),new Point(0,-20,2),new Point(2,-20,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)));
 		scene.lights.add(new DirectionalLight(spCL, new Vector(10,20,-15)));
 		//scene.lights.add(new SpotLight(new Color(WHITE),new Point(5,0,5),new Vector(0,0,-1)));
+
 		Camera camera = new Camera(new Point(-10,-20,30), new Vector(24, 20, -24), new Vector(72,60 ,122)
 		//Camera camera = new Camera(new Point(5,5,30), new Vector(0, 0, -1), new Vector(0,1 ,0)
 		)
