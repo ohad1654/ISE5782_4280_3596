@@ -34,6 +34,17 @@ public class Camera {
         this.vRight=this.vTo.crossProduct(this.vUp);
     }
 
+    public Camera(Point position,Point target){
+        if(position.equals(target))
+            throw new IllegalArgumentException("position must by different from target");
+
+        this.position=position;
+        vTo=target.subtract(position).normalize();
+        double vUpZ=Math.abs(vTo.getX()*vTo.getX()+vTo.getY()*vTo.getY())/vTo.getZ();
+        vUp=new Vector(vTo.getX(),vTo.getY(),vUpZ).normalize();
+        this.vRight=this.vTo.crossProduct(this.vUp);
+    }
+
     /**
      * set the view plane size
      * @param width the width of the VP
