@@ -114,81 +114,17 @@ public class RenderTests {
 		int sizeWood = 2;
 		Color colorPool = new Color(0,102,255);
 		scene.geometries.add( //
-				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(GREEN)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				//new Sphere(new Point(8,0,4),80).setEmission(new Color(BLUE))
-				// up left
-				 ,new Polygon(new Point(0,0,0),new Point(0,10,0),new Point(0,10,10),new Point(0,0,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(10,0,0),new Point(10,10,0),new Point(10,10,10),new Point(10,0,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(0,10,0),new Point(10,10,0),new Point(10,10,10),new Point(0,10,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				//entry road
-				,new Polygon(new Point(4,-5,0.1),new Point(6,-5,0.1),new Point(6,-10,0.1),new Point(4,-10,0.1)).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				//pol1
-				,new Polygon(Point.ZERO,new Point(0,0,6),new Point(10,0,6), new Point(10,0,0)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				//pol2
-				,new Polygon(new Point(0,0,8),new Point(0,0,10), new Point(10,0,10),new Point(10,0,8)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				//pol3
-				,new Polygon(new Point(0,0,6),new Point(0,0,8),new Point(2,0,8),new Point(2,0,6)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
-				//pol4
-				new Polygon(new Point(4,0,6),new Point(4,0,8),new Point(6,0,8),new Point(6,0,6)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
-				//pol5
-				new Polygon(new Point(8,0,6),new Point(8,0,8),new Point(10,0,8),new Point(10,0,6)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
-				//window1
-				new Polygon(new Point(2,0,6),new Point(2,0,8),new Point(4,0,8),new Point(4,0,6)).setMaterial(new Material().setKt(new Double3(1))),
-				//window2
-				new Polygon(new Point(6,0,6),new Point(6,0,8),new Point(8,0,8),new Point(8,0,6)).setMaterial(new Material().setKt(new Double3(1)))
-				,new Polygon(new Point(0,0,0),new Point(10,0,0),new Point(10,0,10),new Point(0,0,10)).setEmission(new Color(BLUE)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-
-				,new Polygon(new Point(2,0,0.1),new Point(8,0,0.1),new Point(8,-20,0.1),new Point(2,-20,0.1)).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-
-				,new Circle((centerPool.add(new Vector(0,0,0.00001))),5.7,new Plane(new Point(0, 0, 0.000001),new Vector(0, 0, 1))).setEmission(new Color(9,34,6)).setMaterial(new Material().setKd(new Double3(0.2)).setShininess(100))
-				,new Circle((centerPool.add(new Vector(0,0,0.0001))),5,new Plane(new Point(0, 0, 0.00001),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(15,15,0))).setMaterial(new Material().setKd(new Double3(0.07)).setKs(new Double3(0.8)).setShininess(100).setKr(new Double3(0.2)))
-				,new Circle((centerPool.add(new Vector(0,0,0.0002))),4,new Plane(new Point(0, 0, 0.00002),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(10,10,0))).setMaterial(new Material().setKd(new Double3(0.04)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.25)))
-				,new Circle((centerPool.add(new Vector(0,0,0.0003))),3,new Plane(new Point(0, 0, 0.00003),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(05,05,0))).setMaterial(new Material().setKd(new Double3(0.06)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
-				,new Circle((centerPool.add(new Vector(0,0,0.0004))),2,new Plane(new Point(0, 0, 0.00004),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(0,0,0))).setMaterial(new Material().setKd(new Double3(0.03)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
-
-				//,new Circle((centerPool.add(new Vector(0,0,0.0004))),2,new Plane(new Point(0, 0, 0.00004),new Vector(0, 0, 1))).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0)).setKs(new Double3(0)).setShininess(000).setKr(new Double3(0.5)))
-
-				,new Polygon(new Point(8,0,0.1),new Point(10,0,0.1),new Point(10,-20,0.1),new Point(8,-20,0.1)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(8,0,0.1),new Point(8,-20,0.1),new Point(8,-20,2),new Point(8,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(10,0,0.1),new Point(10,-20,0.1),new Point(10,-20,2),new Point(10,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(8,0,2),new Point(10,0,2),new Point(10,-20,2),new Point(8,-20,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-
-				,new Polygon(new Point(2,0,0.1),new Point(0,0,0.1),new Point(0,-20,0.1),new Point(2,-20,0.1)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(2,0,0.1),new Point(2,-20,0.1),new Point(2,-20,2),new Point(2,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(0,0,0.1),new Point(0,-20,0.1),new Point(0,-20,2),new Point(0,0,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(new Point(2,0,2),new Point(0,0,2),new Point(0,-20,2),new Point(2,-20,2)).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(GREEN)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
+				createHome(new Point(0,0,0))
 				,baseTree(centerWood.add(new Vector(4,-8,0)),sizeWood+0.5,new Color(10,40,60),new Color(10,40,60))
 				,baseTree(centerWood.add(new Vector(4,-8,0)),sizeWood+0.5,new Color(10,40,60),new Color(10,140,220))
-				,baseTree(centerWood.add(new Vector(-10,-20,0)),sizeWood+0.7,new Color(00,40,60),new Color(00,140,60))
-				,baseTree(centerWood.add(new Vector(10,-30,0)),sizeWood+0.2,new Color(10,90,00),new Color(100,90,0))
-				,baseTree(centerWood.add(new Vector(15,-8,0)),sizeWood-0.5,new Color(100,00,60),new Color(0,110,60))
-				,baseTree(centerWood.add(new Vector(4,-17,0)),sizeWood+0.5,new Color(190,40,250),new Color(67,223,180))
-				,baseTree(centerWood.add(new Vector(20,30,0)),sizeWood-0.5,new Color(100,240,160),new Color(100,240,160))
-				//,baseTree(centerWood.add(new Vector(10,10,0)),sizeWood-4)
 
-
-				/*,new Polygon(centerWood,centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,0,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(centerWood,centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.25)).setKs(new Double3(0.25)).setShininess(20))
-				,new Polygon(centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Polygon(centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(sizeWood,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-
-				,new Sphere(centerWood.add(new Vector(sizeWood/2,-sizeWood/2,4*sizeWood)),3).setEmission(new Color(30,130,0)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(1)).setShininess(100))
-				,new Sphere(centerWood.add(new Vector(sizeWood/2,-sizeWood,4*sizeWood)),3).setEmission(new Color(30,130,0)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Sphere(centerWood.add(new Vector(-sizeWood/3,-sizeWood/2,3.5*sizeWood)),3).setEmission(new Color(30,130,0)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				,new Sphere(centerWood.add(new Vector(-sizeWood/3,-1.5*sizeWood,3.5*sizeWood)),2.7).setEmission(new Color(30,130,0)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				*/
-
-
-				//,new Sphere(centerWood.add(new Vector(0,-2*sizeWood,3.5*sizeWood)),sizeWood/2).setEmission(new Color(30,100,0)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				//,new Sphere(centerWood.add(new Vector(-sizeWood/2,-sizeWood,3.5*sizeWood)),sizeWood/1.5).setEmission(new Color(30,160,0)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
 		);
 		scene.lights.add(new DirectionalLight(spCL, new Vector(10,20,-15)));
-		//scene.lights.add(new SpotLight(new Color(WHITE),new Point(5,0,5),new Vector(0,0,-1)));
-
-		Camera camera = new Camera(centerWood.add(new Vector(-30,-30,20)), new Vector(30, 30, -20), new Vector(30,30 ,90)
-		//Camera camera = new Camera(new Point(5,5,30), new Vector(0, 0, -1), new Vector(0,1 ,0)
+		Camera camera = new Camera(new Point(-15,-15,20), new Vector(24, 20, -15), new Vector(24*15,20*15 ,976)
+		//Camera camera = new Camera(new Point(5,10,40), new Vector(0, 0, -1), new Vector(0,1 ,0)
 		)
-				.setVPDistance(10) //
+				.setVPDistance(40) //
 				.setVPSize(40, 40) //
 				.setImageWriter(new ImageWriter("Home picture", 1000, 1000))
 				.setRayTracer(new RayTracerBasic(scene));
@@ -197,7 +133,47 @@ public class RenderTests {
 		//camera.printGrid(100, new Color(WHITE));
 		camera.writeToImage();
 	}
+	private Geometries createHome(Point position){
+		double roof_height=15;
 
+		return new Geometries(
+				new Polygon(position,position.add(new Vector(0,10,0)),position.add(new Vector(0,10,10)),position.add(new Vector(0,0,10))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))//.setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(position.add(new Vector(10,0,0)),position.add(new Vector(10,10,0)),position.add(new Vector(10,10,10)),position.add(new Vector(10,0,10))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Polygon(position.add(new Vector(0,10,0)),position.add(new Vector(10,10,0)),position.add(new Vector(10,10,10)),new Point(0,10,10)).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				//pol1a
+				,new Polygon(position,position.add(new Vector(0,0,5)),position.add(new Vector(3.5,0,5)), position.add(new Vector(3.5,0,0))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				//pol1b0
+				,new Polygon(position.add(new Vector(6.5,0,0)),position.add(new Vector(6.5,0,5)),position.add(new Vector(10,0,5)),position.add( new Vector(10,0,0))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				//pol1c
+				,new Polygon(position.add(new Vector(0,0,5)),position.add(new Vector(0,0,6)),position.add(new Vector(10,0,6)), position.add(new Vector(10,0,5))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				//pol2
+				,new Polygon(position.add(new Vector(0,0,8)),position.add(new Vector(0,0,10)), position.add(new Vector(10,0,10)),position.add(new Vector(10,0,8))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				//pol3
+				,new Polygon(position.add(new Vector(0,0,6)),position.add(new Vector(0,0,8)),position.add(new Vector(2,0,8)),position.add(new Vector(2,0,6))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				//pol4
+				new Polygon(position.add(new Vector(4,0,6)),position.add(new Vector(4,0,8)),position.add(new Vector(6,0,8)),position.add(new Vector(6,0,6))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				//pol5
+				new Polygon(position.add(new Vector(8,0,6)),position.add(new Vector(8,0,8)),position.add(new Vector(10,0,8)),position.add(new Vector(10,0,6))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				//window1
+				new Polygon(position.add(new Vector(2,0,6)),position.add(new Vector(2,0,8)),position.add(new Vector(4,0,8)),position.add(new Vector(4,0,6))).setMaterial(new Material().setKt(new Double3(1)).setKr(new Double3(0.2)).setShininess(1000)),
+				//window2
+				new Polygon(position.add(new Vector(6,0,6)),position.add(new Vector(6,0,8)),position.add(new Vector(8,0,8)),position.add(new Vector(8,0,6))).setMaterial(new Material().setKt(new Double3(1)).setKr(new Double3(0.2)).setShininess(1000))
+				//door
+				,new Polygon(position.add(new Vector(6.5,0,0)),position.add(new Vector(6.5,0,5)),position.add(new Vector(3.5,-3,5)),position.add(new Vector(3.5,-3,0))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Polygon(position.add(new Vector(6.4,0.1,0)),position.add(new Vector(6.4,0.1,5)),position.add(new Vector(3.4,-2.9,5)),position.add(new Vector(3.4,-2.9,0))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Polygon(position.add(new Vector(6.5,0,5)),position.add(new Vector(6.4,0.1,5)),position.add(new Vector(3.4,-2.9,5)),position.add(new Vector(3.5,-3,5))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Polygon(position.add(new Vector(3.5,-3,5)),position.add(new Vector(3.5,-3,0)),position.add(new Vector(3.4,-2.9,0)),position.add(new Vector(3.4,-2.9,5))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Sphere(position.add(new Vector(4,-2.5,2.2)),0.12).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
 
+				//roof
+				,new Triangle(position.add(new Vector(0,0,10)),position.add(new Vector(10,0,10)),position.add(new Vector(5,0,roof_height))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Triangle(position.add(new Vector(0,10,10)),position.add(new Vector(10,10,10)),position.add(new Vector(5,10,roof_height))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Polygon(position.add(new Vector(0,0,10)),position.add(new Vector(0,10,10)),position.add(new Vector(5,10,roof_height)),position.add(new Vector(5,0,roof_height))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
+				,new Polygon(position.add(new Vector(10,0,10)),position.add(new Vector(10,10,10)),position.add(new Vector(5,10,roof_height)),position.add(new Vector(5,0,roof_height))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
 
+				//entry road
+				,new Polygon(position.add(new Vector(2,0,0.1)),position.add(new Vector(8,0,0.1)),position.add(new Vector(8,-20,0.1)),position.add(new Vector(2,-20,0.1))).setEmission(new Color(GRAY)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+
+		);
+	}
 }
