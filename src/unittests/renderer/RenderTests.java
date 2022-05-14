@@ -122,10 +122,10 @@ public class RenderTests {
 
 		);
 		scene.lights.add(new DirectionalLight(new Color(WHITE), new Vector(-10,20,-15)));
-		Camera camera = new Camera(new Point(-5,-10,16),new Point(4,9,17)
+		Camera camera = new Camera(new Point(-5,-10,15),new Point(5,5,8)
 		)
 				.setVPDistance(10) //
-				.setVPSize(40, 40) //
+				.setVPSize(20, 20) //
 				.setImageWriter(new ImageWriter("Home picture", 1000, 1000))
 				.setRayTracer(new RayTracerBasic(scene));
 
@@ -137,7 +137,7 @@ public class RenderTests {
 		final double roof_height=15;
 		final double doorAngle=90;
 		final double doorAngleRad=Math.toRadians(doorAngle+180);
-		final  Vector doorRotateV=new Vector(3*Math.cos(doorAngleRad),3*Math.sin(doorAngleRad),0);
+		final  Vector doorRotateV=new Vector(Math.cos(doorAngleRad),Math.sin(doorAngleRad),0).scale(3);
 		return new Geometries(
 				new Polygon(position,position.add(new Vector(0,10,0)),position.add(new Vector(0,10,10)),position.add(new Vector(0,0,10))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))//.setKs(new Double3(0.2)).setShininess(100))
 				,new Polygon(position.add(new Vector(10,0,0)),position.add(new Vector(10,10,0)),position.add(new Vector(10,10,10)),position.add(new Vector(10,0,10))).setEmission(new Color(BLUE).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
@@ -159,14 +159,9 @@ public class RenderTests {
 				//window1
 				new Polygon(position.add(new Vector(2,0,6)),position.add(new Vector(2,0,8)),position.add(new Vector(4,0,8)),position.add(new Vector(4,0,6))).setMaterial(new Material().setKt(new Double3(1)).setKr(new Double3(0.2)).setShininess(1000)),
 				//window2
-				new Polygon(position.add(new Vector(6,0,6)),position.add(new Vector(6,0,8)),position.add(new Vector(8,0,8)),position.add(new Vector(8,0,6))).setMaterial(new Material().setKt(new Double3(1)).setKr(new Double3(0.2)).setShininess(1000))
-				
-				,new Polygon(position.add(new Vector(6.5,0,0)),position.add(new Vector(6.5,0,5)),position.add(new Vector(6.5,0,5)).add(doorRotateV),position.add(new Vector(6.5,0,0)).add(doorRotateV)).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
-				,new Polygon(position.add(new Vector(6.4,0.1,0)),position.add(new Vector(6.4,0.1,5)),position.add(new Vector(6.4,0.1,5)).add(doorRotateV),position.add(new Vector(6.4,0.1,0)).add(doorRotateV)).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
-				,new Polygon(position.add(new Vector(6.5,0,5)),position.add(new Vector(6.5,0,5)).add(doorRotateV),position.add(new Vector(6.4,0.1,5)).add(doorRotateV),position.add(new Vector(6.4,0.1,5))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
-				,new Polygon(position.add(new Vector(6.5,0,5)).add(doorRotateV),position.add(new Vector(6.5,0,0)).add(doorRotateV),position.add(new Vector(6.4,0.1,0)).add(doorRotateV),position.add(new Vector(6.4,0.1,5)).add(doorRotateV)).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
-				,new Sphere(position.add(new Vector(6.5,0,2.2)).add(doorRotateV.scale(0.9)),0.12).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-				//TODO: set handle in place
+				new Polygon(position.add(new Vector(6,0,6)),position.add(new Vector(6,0,8)),position.add(new Vector(8,0,8)),position.add(new Vector(8,0,6))).setMaterial(new Material().setKt(new Double3(1)).setKr(new Double3(0.2)).setShininess(1000)),
+
+				createDoor(position.add(new Vector(6.5,0,0)),doorRotateV)
 
 				//roof
 				,new Triangle(position.add(new Vector(0,0,10)),position.add(new Vector(10,0,10)),position.add(new Vector(5,0,roof_height))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
@@ -175,7 +170,7 @@ public class RenderTests {
 				,new Polygon(position.add(new Vector(10,0,10)),position.add(new Vector(10,10,10)),position.add(new Vector(5,10,roof_height)),position.add(new Vector(5,0,roof_height))).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2)))
 
 				//entry road
-				,new Polygon(position.add(new Vector(2,0,0.1)),position.add(new Vector(8,0,0.1)),position.add(new Vector(8,-20,0.1)),position.add(new Vector(2,-20,0.1))).setEmission(new Color(GRAY)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(position.add(new Vector(2,0,0.00001)),position.add(new Vector(8,0,0.00001)),position.add(new Vector(8,-20,0.00001)),position.add(new Vector(2,-20,0.00001))).setEmission(new Color(GRAY)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
 
 				//aruba
 				//darom
@@ -189,6 +184,43 @@ public class RenderTests {
 				,createSmoke(position.add(new Vector(2,9,17)),position.add(new Vector(2,9,12)).add(new Vector(4,7,23)))
 		);
 	}
+
+	private Geometries createDoor(Point position,Vector dir){
+		Vector widthVec=dir.crossProduct(new Vector(0,0,1)).normalize().scale(0.2);
+		return new Geometries(
+				//front side
+				new Polygon(
+						position,
+						position.add(new Vector(0,0,5)),
+						position.add(new Vector(0,0,5)).add(dir),
+						position.add(dir)
+				).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				//back side
+				new Polygon(
+						position.add(widthVec),
+						position.add(new Vector(0,0,5)).add(widthVec),
+						position.add(new Vector(0,0,5)).add(dir).add(widthVec),
+						position.add(dir).add(widthVec)
+				).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				//top side
+				new Polygon(
+						position.add(new Vector(0,0,5)),
+						position.add(new Vector(0,0,5)).add(widthVec),
+						position.add(new Vector(0,0,5)).add(widthVec).add(dir),
+						position.add(new Vector(0,0,5)).add(dir)
+				).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				//face side
+				new Polygon(
+						position.add(new Vector(0,0,5)).add(dir),
+						position.add(dir),
+						position.add(dir).add(widthVec),
+						position.add(new Vector(0,0,5)).add(dir).add(widthVec)
+				).setEmission(new Color(RED).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				//handle
+				new Sphere(position.add(new Vector(0,0,2.5)).add(dir.scale(0.9)).add(widthVec.scale(-1.1)),0.12).setEmission(new Color(BLACK)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+		);
+	}
+
 	private Geometries createSmoke(Point start,Point end){
 		Geometries smoke=new Geometries();
 		for (int i = 0; i <15; i++) {
