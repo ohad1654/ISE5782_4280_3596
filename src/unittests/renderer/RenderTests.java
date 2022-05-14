@@ -21,11 +21,6 @@ import static java.awt.Color.*;
  * @author Dan
  */
 public class RenderTests {
-	private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
-	private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
-	private Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
-	private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
-	private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
 
 	/**
 	 * Produce a scene with basic 3D model and render it into a png image with a
@@ -89,8 +84,7 @@ public class RenderTests {
 		camera.writeToImage();
 	}
 
-	public Geometries baseBench(Point point)
-	{
+	public Geometries baseBench(Point point) {
 		double size = 3;
 		Color brown = new Color(240,157,12).scale(0.8);
 		Geometries geo = new Geometries();
@@ -214,15 +208,15 @@ public class RenderTests {
 
 		Geometries geo = new Geometries();
 		geo.add(
-		new Polygon(centerWood,centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,0,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-			,new Polygon(centerWood,centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.25)).setKs(new Double3(0.25)).setShininess(20))
-			,new Polygon(centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-			,new Polygon(centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(sizeWood,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+		new Polygon(centerWood,centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,0,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)))
+			,new Polygon(centerWood,centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.25)).setKs(new Double3(0.25)))
+			,new Polygon(centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)))
+			,new Polygon(centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(sizeWood,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)))
 
-			,new Sphere(centerWood.add(new Vector(sizeWood/2,-sizeWood/2,4*sizeWood)),3).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(1)).setShininess(100))
-			,new Sphere(centerWood.add(new Vector(sizeWood/2,-sizeWood,4*sizeWood)),3).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-			,new Sphere(centerWood.add(new Vector(-sizeWood/3,-sizeWood/2,3.5*sizeWood)),3).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
-			,new Sphere(centerWood.add(new Vector(-sizeWood/3,-1.5*sizeWood,3.5*sizeWood)),2.7).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+			,new Sphere(centerWood.add(new Vector(sizeWood/2,-sizeWood/2,4*sizeWood)),3).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)))
+			,new Sphere(centerWood.add(new Vector(sizeWood/2,-sizeWood,4*sizeWood)),3).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)))
+			,new Sphere(centerWood.add(new Vector(-sizeWood/3,-sizeWood/2,3.5*sizeWood)),3).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)))
+			,new Sphere(centerWood.add(new Vector(-sizeWood/3,-1.5*sizeWood,3.5*sizeWood)),2.7).setEmission(leaf).setMaterial(new Material().setKd(new Double3(0.2)))
 		);
 		return  geo;
 	}
@@ -232,26 +226,22 @@ public class RenderTests {
 				.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2))); //
 
 		Color brick = new Color(163,53,18);
-		Point centerPool = new Point(20,-15,0.001);
-		Point centerWood = new Point (22,-6,0.001);
-		int sizeWood = 2;
+		Point centerPool = new Point(-4,-5,0.001);
 		Color colorPool = new Color(0,102,255);
 		scene.geometries.add( //
-				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(GREEN).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
-				createHome(new Point(0,0,0))
-				,new Circle((centerPool.add(new Vector(0,0,0.00001))),5.7,new Plane(new Point(0, 0, 0.000001),new Vector(0, 0, 1))).setEmission(new Color(9,34,6)).setMaterial(new Material().setKd(new Double3(0.2)).setShininess(100))
-				,new Circle((centerPool.add(new Vector(0,0,0.0001))),5,new Plane(new Point(0, 0, 0.00001),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(15,15,0))).setMaterial(new Material().setKd(new Double3(0.07)).setKs(new Double3(0.8)).setShininess(100).setKr(new Double3(0.2)))
-				,new Circle((centerPool.add(new Vector(0,0,0.0002))),4,new Plane(new Point(0, 0, 0.00002),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(10,10,0))).setMaterial(new Material().setKd(new Double3(0.04)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.25)))
-				,new Circle((centerPool.add(new Vector(0,0,0.0003))),3,new Plane(new Point(0, 0, 0.00003),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(05,05,0))).setMaterial(new Material().setKd(new Double3(0.06)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
-				,new Circle((centerPool.add(new Vector(0,0,0.0004))),2,new Plane(new Point(0, 0, 0.00004),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(0,0,0))).setMaterial(new Material().setKd(new Double3(0.03)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
-				,baseBench(new Point(15,-12,0.0001))
-
-				,baseTree(centerWood.add(new Vector(4,-8,0)),sizeWood+0.5,new Color(10,40,60),new Color(10,40,60))
-				,baseTree(centerWood.add(new Vector(4,-8,0)),sizeWood+0.5,new Color(10,40,60),new Color(10,140,220))
+				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(155,244,145).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
+				createHome(new Point(0,0,0)),
+				baseBench(new Point(-8,0,0)),
+				baseTree(new Point(-12,0,0),2,new Color(130,70,0).scale(0.5),new Color(110,213,66).scale(0.5))
+				,new Circle((centerPool.add(new Vector(0,0,0.00001))),4.7,new Plane(new Point(0, 0, 0.000001),new Vector(0, 0, 1))).setEmission(new Color(9,34,6)).setMaterial(new Material().setKd(new Double3(0.2)).setShininess(100))
+				,new Circle((centerPool.add(new Vector(0,0,0.0001))),4,new Plane(new Point(0, 0, 0.00001),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(15,15,0))).setMaterial(new Material().setKd(new Double3(0.07)).setKs(new Double3(0.8)).setShininess(100).setKr(new Double3(0.2)))
+				,new Circle((centerPool.add(new Vector(0,0,0.0002))),3,new Plane(new Point(0, 0, 0.00002),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(10,10,0))).setMaterial(new Material().setKd(new Double3(0.04)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.25)))
+				,new Circle((centerPool.add(new Vector(0,0,0.0003))),2,new Plane(new Point(0, 0, 0.00003),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(5,5,0))).setMaterial(new Material().setKd(new Double3(0.06)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
+				,new Circle((centerPool.add(new Vector(0,0,0.0004))),1,new Plane(new Point(0, 0, 0.00004),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(0,0,0))).setMaterial(new Material().setKd(new Double3(0.03)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
 
 		);
 		scene.lights.add(new DirectionalLight(new Color(WHITE), new Vector(-10,20,-15)));
-		Camera camera = new Camera(new Point(-5,-10,15),new Point(5,5,8)
+		Camera camera = new Camera(new Point(-10,-20,15),new Point(-5,10,10)
 		)
 				.setVPDistance(10) //
 				.setVPSize(20, 20) //
@@ -259,12 +249,11 @@ public class RenderTests {
 				.setRayTracer(new RayTracerBasic(scene));
 
 		camera.renderImage();
-		//camera.printGrid(100, new Color(WHITE));
 		camera.writeToImage();
 	}
 	private Geometries createHome(Point position){
 		final double roof_height=15;
-		final double doorAngle=90;
+		final double doorAngle=30;
 		final double doorAngleRad=Math.toRadians(doorAngle+180);
 		final  Vector doorRotateV=new Vector(Math.cos(doorAngleRad),Math.sin(doorAngleRad),0).scale(3);
 		return new Geometries(
