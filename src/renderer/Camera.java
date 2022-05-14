@@ -40,8 +40,11 @@ public class Camera {
 
         this.position=position;
         vTo=target.subtract(position).normalize();
-        double vUpZ=Math.abs(vTo.getX()*vTo.getX()+vTo.getY()*vTo.getY())/vTo.getZ();
-        vUp=new Vector(vTo.getX(),vTo.getY(),vUpZ).normalize();
+        vUp =new Vector(0,0,1);
+        if (vTo.getZ()!=0) {
+            double vUpZ = Math.abs((vTo.getX() * vTo.getX() + vTo.getY() * vTo.getY()) / vTo.getZ());
+            vUp = new Vector(vTo.getX(), vTo.getY(), vUpZ).normalize();
+        }
         this.vRight=this.vTo.crossProduct(this.vUp);
     }
 
