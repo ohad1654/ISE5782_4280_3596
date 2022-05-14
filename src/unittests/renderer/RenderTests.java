@@ -86,6 +86,126 @@ public class RenderTests {
 		camera.writeToImage();
 	}
 
+	public Geometries baseBench(Point point)
+	{
+		double size = 3;
+		Color brown = new Color(240,157,12).scale(0.8);
+		Geometries geo = new Geometries();
+		geo.add(
+				baseRectangle(
+						point
+						,point.add(new Vector(0,2,0))
+						,point.add(new Vector(1,2,0))
+						,point.add(new Vector(1,0,0))
+						,point.add(new Vector(0,1,1))
+						,point.add(new Vector(0,3,1))
+						,point.add(new Vector(1,3,1))
+						,point.add(new Vector(1,1,1)),brown)
+				,baseRectangle(
+						point.add(new Vector(5,0,0))
+						,point.add(new Vector(5,2,0))
+						,point.add(new Vector(6,2,0))
+						,point.add(new Vector(6,0,0))
+						,point.add(new Vector(5,1,1))
+						,point.add(new Vector(5,3,1))
+						,point.add(new Vector(6,3,1))
+						,point.add(new Vector(6,1,1)),brown)
+
+
+				,baseRectangle(
+						point.add(new Vector(0,1,1)),
+						point.add(new Vector(0,1,1.2)),
+						point.add(new Vector(0,1.5,1.2)),
+						point.add(new Vector(0,1.5,1)),
+						point.add(new Vector(6,1,1)),
+						point.add(new Vector(6,1,1.2)),
+						point.add(new Vector(6,1.5,1.2)),
+						point.add(new Vector(6,1.5,1)),brown)
+
+				,baseRectangle(
+						point.add(new Vector(0,1.8,1)),
+						point.add(new Vector(0,1.8,1.2)),
+						point.add(new Vector(0,2.1,1.2)),
+						point.add(new Vector(0,2.1,1)),
+						point.add(new Vector(6,1.8,1)),
+						point.add(new Vector(6,1.8,1.2)),
+						point.add(new Vector(6,2.1,1.2)),
+						point.add(new Vector(6,2.1,1)),brown)
+
+				,baseRectangle(
+						point.add(new Vector(0,2.3,1)),
+						point.add(new Vector(0,2.3,1.2)),
+						point.add(new Vector(0,2.8,1.2)),
+						point.add(new Vector(0,2.8,1)),
+						point.add(new Vector(6,2.3,1)),
+						point.add(new Vector(6,2.3,1.2)),
+						point.add(new Vector(6,2.8,1.2)),
+						point.add(new Vector(6,2.8,1)),brown)
+
+				,baseRectangle(
+						point.add(new Vector(0,2.8,1.3)),
+						point.add(new Vector(0,2.8,2)),
+						point.add(new Vector(0,3.1,2)),
+						point.add(new Vector(0,3.1,1.3)),
+						point.add(new Vector(6,2.8,1.3)),
+						point.add(new Vector(6,2.8,2)),
+						point.add(new Vector(6,3.1,2)),
+						point.add(new Vector(6,3.1,1.3)),brown)
+
+						,baseRectangle(
+						point.add(new Vector(0,2.8,2.3)),
+						point.add(new Vector(0,2.8,3)),
+						point.add(new Vector(0,3.1,3)),
+						point.add(new Vector(0,3.1,2.3)),
+						point.add(new Vector(6,2.8,2.3)),
+						point.add(new Vector(6,2.8,3)),
+						point.add(new Vector(6,3.1,3)),
+						point.add(new Vector(6,3.1,2.3)),brown)
+
+						,baseRectangle(
+						point.add(new Vector(2,3.2,0.8)),
+						point.add(new Vector(2,3.4,0.8)),
+						point.add(new Vector(2.5,3.4,0.8)),
+						point.add(new Vector(2.5,3.2,0.8)),
+						point.add(new Vector(2,3.2,2.5)),
+						point.add(new Vector(2,3.4,2.5)),
+						point.add(new Vector(2.5,3.4,2.5)),
+						point.add(new Vector(2.5,3.2,2.5))
+						,brown)
+
+						,baseRectangle(
+						point.add(new Vector(4,3.2,0.8)),
+						point.add(new Vector(4,3.4,0.8)),
+						point.add(new Vector(4.5,3.4,0.8)),
+						point.add(new Vector(4.5,3.2,0.8)),
+						point.add(new Vector(4,3.2,2.5)),
+						point.add(new Vector(4,3.4,2.5)),
+						point.add(new Vector(4.5,3.4,2.5)),
+						point.add(new Vector(4.5,3.2,2.5))
+						,brown)
+
+		);
+		return geo;
+	}
+
+
+
+	public Geometries baseRectangle(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7,Point p8, Color mainColor)
+	{
+		Geometries geo = new Geometries();
+		geo.add(
+				new Polygon(p1,p4,p8,p5).setEmission(mainColor).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(p1,p5,p6,p2).setEmission(mainColor).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(p4,p8,p7,p3).setEmission(mainColor).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(p2,p3,p7,p6).setEmission(mainColor).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(p1,p2,p3,p4).setEmission(mainColor).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+				,new Polygon(p5,p6,p7,p8).setEmission(mainColor).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
+		);
+
+
+		return geo;
+	}
+
 	public Geometries baseTree(Point centerWood,double sizeWood,Color brick,Color leaf)
 	{
 
@@ -116,6 +236,13 @@ public class RenderTests {
 		scene.geometries.add( //
 				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(GREEN)).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100)),
 				createHome(new Point(0,0,0))
+				,new Circle((centerPool.add(new Vector(0,0,0.00001))),5.7,new Plane(new Point(0, 0, 0.000001),new Vector(0, 0, 1))).setEmission(new Color(9,34,6)).setMaterial(new Material().setKd(new Double3(0.2)).setShininess(100))
+				,new Circle((centerPool.add(new Vector(0,0,0.0001))),5,new Plane(new Point(0, 0, 0.00001),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(15,15,0))).setMaterial(new Material().setKd(new Double3(0.07)).setKs(new Double3(0.8)).setShininess(100).setKr(new Double3(0.2)))
+				,new Circle((centerPool.add(new Vector(0,0,0.0002))),4,new Plane(new Point(0, 0, 0.00002),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(10,10,0))).setMaterial(new Material().setKd(new Double3(0.04)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.25)))
+				,new Circle((centerPool.add(new Vector(0,0,0.0003))),3,new Plane(new Point(0, 0, 0.00003),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(05,05,0))).setMaterial(new Material().setKd(new Double3(0.06)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
+				,new Circle((centerPool.add(new Vector(0,0,0.0004))),2,new Plane(new Point(0, 0, 0.00004),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(0,0,0))).setMaterial(new Material().setKd(new Double3(0.03)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
+				,baseBench(new Point(15,-12,0.0001))
+
 				,baseTree(centerWood.add(new Vector(4,-8,0)),sizeWood+0.5,new Color(10,40,60),new Color(10,40,60))
 				,baseTree(centerWood.add(new Vector(4,-8,0)),sizeWood+0.5,new Color(10,40,60),new Color(10,140,220))
 
