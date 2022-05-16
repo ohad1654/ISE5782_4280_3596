@@ -2,6 +2,8 @@ package renderer;
 
 import primitives.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.MissingResourceException;
 
 import static primitives.Util.*;
@@ -17,6 +19,7 @@ public class Camera {
     private double distance;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
+    private int maxBeamSize =9;
 
 
     /**
@@ -102,6 +105,16 @@ public class Camera {
         return new Ray(position,pixelIJ.subtract(position));
     }
 
+    public List<Ray> constructRaysBeam(int nX,int nY,int j, int i,int beamSize){
+        List<Ray> beam=new ArrayList<>();
+        for (int beamI = 0; beamI < beamSize; beamI++) {
+            for (int beamJ = 0; beamJ < beamSize; beamJ++) {
+                beam.add(constructRay(nX * beamSize,nY * beamSize,j * beamSize +beamI,i* beamSize +beamJ));
+            }
+        }
+        return beam;
+    }
+
     public Point getPosition() {
         return position;
     }
@@ -151,8 +164,14 @@ public class Camera {
 
         for (int i = 0; i < imageWriter.getNy(); i++) {
             for (int j = 0; j < imageWriter.getNx(); j++) {
-                Ray ray=constructRay(imageWriter.getNx(),imageWriter.getNy(),j,i);
-                imageWriter.writePixel(j,i,rayTracer.traceRay(ray));
+                List<Ray> rays=constructRaysBeam(imageWriter.getNx(),imageWriter.getNy(),j,i,2);
+                Color color=Color.BLACK;
+                for (Color a:
+                    rays.parallelStream().map(ray -> rayTracer.traceRay(ray)).toList()) {
+                    color=color.add(a);
+                }
+
+                imageWriter.writePixel(j,i,color.reduce(rays.size()));
             }
         }
         return this;
