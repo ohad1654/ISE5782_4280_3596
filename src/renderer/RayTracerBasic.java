@@ -73,11 +73,13 @@ public class RayTracerBasic extends RayTracerBase {
 
     private Ray constructReflectedRay(Point intersection,Ray inRay,Vector normal){
         Vector v=inRay.getDir();
-        return new Ray(intersection,v.subtract(normal.scale(2*v.dotProduct(normal))), normal);
+        Vector r = v.subtract(normal.scale(2 * v.dotProduct(normal)));
+        return new Ray(intersection, r, normal);
     }
 
     private Ray constructRefractedRay(Point intersection,Ray inRay,Vector normal){
-        return new Ray(intersection,inRay.getDir(),normal);
+        Vector v = inRay.getDir();
+        return new Ray(intersection, v, normal);
 
     }
 

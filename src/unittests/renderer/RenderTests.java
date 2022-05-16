@@ -208,7 +208,12 @@ public class RenderTests {
 
 		Geometries geo = new Geometries();
 		geo.add(
-		new Polygon(centerWood,centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,0,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)))
+		new Polygon(
+				centerWood,
+				centerWood.add(new Vector(sizeWood,0,0)),
+				centerWood.add(new Vector(sizeWood,0,3*sizeWood)),
+				centerWood.add(new Vector(0,0,3*sizeWood))
+		).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)))
 			,new Polygon(centerWood,centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.25)).setKs(new Double3(0.25)))
 			,new Polygon(centerWood.add(new Vector(0,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(0,-sizeWood,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)))
 			,new Polygon(centerWood.add(new Vector(sizeWood,0,0)),centerWood.add(new Vector(sizeWood,-sizeWood,0)),centerWood.add(new Vector(sizeWood,-sizeWood,3*sizeWood)),centerWood.add(new Vector(sizeWood,0,3*sizeWood))).setEmission(brick).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)))
@@ -240,7 +245,7 @@ public class RenderTests {
 				,new Circle((centerPool.add(new Vector(0,0,0.0004))),1,new Plane(new Point(0, 0, 0.00004),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(0,0,0))).setMaterial(new Material().setKd(new Double3(0.03)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
 
 		);
-		scene.lights.add(new DirectionalLight(new Color(WHITE), new Vector(-10,20,-15)));
+		scene.lights.add(new DirectionalLight(new Color(255, 255, 128), new Vector(-10,20,-15)));
 		Camera camera = new Camera(new Point(-10,-20,15),new Point(-5,10,10)
 		)
 				.setVPDistance(10) //
