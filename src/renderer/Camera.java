@@ -3,8 +3,10 @@ package renderer;
 import primitives.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.stream.IntStream;
 
 import static primitives.Util.*;
 
@@ -91,7 +93,7 @@ public class Camera {
      * @param i the pixel column number
      * @return the ray created
      */
-    public Ray constructRay(int nX, int nY, int j, int i){
+    public Ray constructRay(int nX, int nY, double j, double i){
         Point VPCenter=position.add(vTo.scale(distance));
         double ratioY=height/nY;
         double ratioX=width/nX;
@@ -105,14 +107,27 @@ public class Camera {
         return new Ray(position,pixelIJ.subtract(position));
     }
 
-    public List<Ray> constructRaysBeam(int nX,int nY,int j, int i,int beamSize){
-        List<Ray> beam=new ArrayList<>();
-        for (int beamI = 0; beamI < beamSize; beamI++) {
-            for (int beamJ = 0; beamJ < beamSize; beamJ++) {
-                beam.add(constructRay(nX * beamSize,nY * beamSize,j * beamSize +beamI,i* beamSize +beamJ));
+    public Color constructRaysBeam(int nX,int nY,double j, double i,int level){
+        if(level<=1)
+            return rayTracer.traceRay(constructRay(nX,nY ,j,i));
+
+        Color avgColor=Color.BLACK;
+        Color preColor=null;
+        Color color;
+        for (double beamI = -0.5; beamI < 2; beamI+=2) {
+            for (double beamJ = -0.5; beamJ < 2; beamJ+=2) {
+                color=rayTracer.traceRay(constructRay(nX * 2,nY * 2,j * 2 +beamI,i* 2 +beamJ));
+                if (preColor==null)
+                    preColor=color;
+                if (!color.equals(preColor)){
+                    avgColor = avgColor.add(constructRaysBeam(nX * 2, nY * 2, j * 2 + (int) beamI, i * 2 + (int) beamJ, level - 1));
+                    preColor = color;
+                }
+                else
+                    avgColor=avgColor.add(color);
             }
         }
-        return beam;
+        return avgColor.reduce(4);
     }
 
     public Point getPosition() {
@@ -161,19 +176,14 @@ public class Camera {
             throw new MissingResourceException("Error missing resource in camera","Camera","imageWriter");
         if (rayTracer==null)
             throw new MissingResourceException("Error missing resource in camera","Camera","rayTracer");
+        int ny=imageWriter.getNy(),nx=imageWriter.getNx();
 
-        for (int i = 0; i < imageWriter.getNy(); i++) {
-            for (int j = 0; j < imageWriter.getNx(); j++) {
-                List<Ray> rays=constructRaysBeam(imageWriter.getNx(),imageWriter.getNy(),j,i,2);
-                Color color=Color.BLACK;
-                for (Color a:
-                    rays.parallelStream().map(ray -> rayTracer.traceRay(ray)).toList()) {
-                    color=color.add(a);
-                }
-
-                imageWriter.writePixel(j,i,color.reduce(rays.size()));
+        IntStream.range(0,ny).parallel().forEach(j->{
+            for (int i = 0; i <nx; i++){
+                Color color=constructRaysBeam(nx,ny, j, i,3);
+                imageWriter.writePixel(j,i,color);
             }
-        }
+        });
         return this;
     }
 

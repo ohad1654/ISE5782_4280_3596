@@ -1,8 +1,7 @@
 package unittests.renderer;
 
 import lighting.DirectionalLight;
-import lighting.PointLight;
-import lighting.SpotLight;
+
 import org.junit.jupiter.api.Test;
 
 import lighting.AmbientLight;
@@ -11,7 +10,6 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
-import java.util.Random;
 
 import static java.awt.Color.*;
 
@@ -187,8 +185,7 @@ public class RenderTests {
 
 
 
-	public Geometries baseRectangle(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7,Point p8, Color mainColor)
-	{
+	public Geometries baseRectangle(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7,Point p8, Color mainColor) {
 		Geometries geo = new Geometries();
 		geo.add(
 				new Polygon(p1,p4,p8,p5).setEmission(mainColor).setMaterial(new Material().setKd(new Double3(0.2)).setKs(new Double3(0.2)).setShininess(100))
@@ -203,8 +200,7 @@ public class RenderTests {
 		return geo;
 	}
 
-	public Geometries baseTree(Point centerWood,double sizeWood,Color brick,Color leaf)
-	{
+	public Geometries baseTree(Point centerWood,double sizeWood,Color brick,Color leaf)	{
 
 		Geometries geo = new Geometries();
 		geo.add(
@@ -236,27 +232,38 @@ public class RenderTests {
 		scene.geometries.add( //
 				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(155,244,145).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
 				createHome(new Point(0,0,0)),
-				baseBench(new Point(-8,0,0)),
+				//baseBench(new Point(-8,0,0)),
 				baseTree(new Point(-12,0,0),2,new Color(130,70,0).scale(0.5),new Color(110,213,66).scale(0.5))
-				,new Circle((centerPool.add(new Vector(0,0,0.00001))),4.7,new Plane(new Point(0, 0, 0.000001),new Vector(0, 0, 1))).setEmission(new Color(9,34,6)).setMaterial(new Material().setKd(new Double3(0.2)).setShininess(100))
+				/*,new Circle((centerPool.add(new Vector(0,0,0.00001))),4.7,new Plane(new Point(0, 0, 0.000001),new Vector(0, 0, 1))).setEmission(new Color(9,34,6)).setMaterial(new Material().setKd(new Double3(0.2)).setShininess(100))
 				,new Circle((centerPool.add(new Vector(0,0,0.0001))),4,new Plane(new Point(0, 0, 0.00001),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(15,15,0))).setMaterial(new Material().setKd(new Double3(0.07)).setKs(new Double3(0.8)).setShininess(100).setKr(new Double3(0.2)))
 				,new Circle((centerPool.add(new Vector(0,0,0.0002))),3,new Plane(new Point(0, 0, 0.00002),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(10,10,0))).setMaterial(new Material().setKd(new Double3(0.04)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.25)))
 				,new Circle((centerPool.add(new Vector(0,0,0.0003))),2,new Plane(new Point(0, 0, 0.00003),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(5,5,0))).setMaterial(new Material().setKd(new Double3(0.06)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
 				,new Circle((centerPool.add(new Vector(0,0,0.0004))),1,new Plane(new Point(0, 0, 0.00004),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(0,0,0))).setMaterial(new Material().setKd(new Double3(0.03)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.3)))
-
+*/
 		);
 		scene.lights.add(new DirectionalLight(new Color(255, 255, 128), new Vector(-10,20,-15)));
 		Camera camera = new Camera(new Point(-10,-20,15),new Point(-5,10,10)
 		)
 				.setVPDistance(10) //
 				.setVPSize(20, 20) //
-				.setImageWriter(new ImageWriter("Home picture", 1000, 1000))
+				.setImageWriter(new ImageWriter("Home picture", 1500, 1500))
 				.setRayTracer(new RayTracerBasic(scene));
 
 		camera.renderImage();
 		camera.writeToImage();
 	}
-	private Geometries createHome(Point position){
+
+	@Test
+	public void AntialiasingTest() {
+		Scene s=new Scene("test").setGeometries(new Geometries(new Circle(new Point(10,5,5),1,new Plane(new Point(10,0,0),new Vector(-1,0,0))).setEmission(new Color(BLUE))));
+		Camera camera=new Camera(Point.ZERO,new Point(1,0,0))
+				.setVPSize(10,10).setVPDistance(10)
+				.setImageWriter(new ImageWriter("Test",1,1))
+				.setRayTracer(new RayTracerBasic(s));
+		camera.constructRaysBeam(1,1,0,0,3);
+	}
+
+	private Geometries createHome(Point position) {
 		final double roof_height=15;
 		final double doorAngle=30;
 		final double doorAngleRad=Math.toRadians(doorAngle+180);
@@ -308,7 +315,7 @@ public class RenderTests {
 		);
 	}
 
-	private Geometries createDoor(Point position,Vector dir){
+	private Geometries createDoor(Point position,Vector dir) {
 		Vector widthVec=dir.crossProduct(new Vector(0,0,1)).normalize().scale(0.2);
 		return new Geometries(
 				//front side
@@ -344,7 +351,7 @@ public class RenderTests {
 		);
 	}
 
-	private Geometries createSmoke(Point start,Point end){
+	private Geometries createSmoke(Point start,Point end) {
 		Geometries smoke=new Geometries();
 		for (int i = 0; i <15; i++) {
 			double x=Math.random()*(Math.abs(start.getX()-end.getX()))+Math.min(start.getX(),end.getX());
