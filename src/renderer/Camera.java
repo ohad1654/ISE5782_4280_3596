@@ -22,6 +22,8 @@ public class Camera {
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
     private double focalLength;
+    private int beamSize=2;
+    private double apertureSize;
 
 
     public Camera setFocalLength(double focalLength) {
@@ -30,11 +32,10 @@ public class Camera {
     }
 
     public Camera setApt(double apt) {
-        this.apt = apt;
+        this.apertureSize = apt;
         return this;
     }
 
-    private double apt;
 
 
     /**
@@ -124,26 +125,14 @@ public class Camera {
         return new Ray(position, pixelIJ.subtract(position));
     }
 
-    public Color constructRaysBeam(int nX, int nY, double j, double i, int level) {
-        if (level <= 1)
-            return rayTracer.traceRay(Depth( constructRay(nX, nY, j, i)));
-
-        Color avgColor = Color.BLACK;
-        Color preColor = null;
-        Color color;
+    public List<Ray> constructRaysBeam(int nX, int nY, double j, double i) {
+        List<Ray> rays=new ArrayList<>(beamSize*beamSize);
         for (double beamI = -0.5; beamI < 2; beamI += 2) {
             for (double beamJ = -0.5; beamJ < 2; beamJ += 2) {
-                color = rayTracer.traceRay(Depth(constructRay(nX * 2, nY * 2, j * 2 + beamI, i * 2 + beamJ)));
-                if (preColor == null)
-                    preColor = color;
-                if (!color.equals(preColor)) {
-                    avgColor = avgColor.add(constructRaysBeam(nX * 2, nY * 2, j * 2 + (int) beamI, i * 2 + (int) beamJ, level - 1));
-                    preColor = color;
-                } else
-                    avgColor = avgColor.add(color);
+                rays.add(constructRay(nX*beamSize,nY*beamSize,j*beamSize+beamJ,i*beamSize+beamI));
             }
         }
-        return avgColor.reduce(4);
+        return rays;
     }
 
     public Point getPosition() {
@@ -197,8 +186,13 @@ public class Camera {
 
         IntStream.range(0, ny).parallel().forEach(j -> {
             for (int i = 0; i < nx; i++) {
-                Color color = constructRaysBeam(nx, ny, j, i, 3);
-                imageWriter.writePixel(j, i, color);
+                List<Ray> rays = constructRaysBeam(nx, ny, j, i);
+                Color avgColor=Color.BLACK;
+                for (Ray ray :
+                        rays) {
+                    avgColor=avgColor.add(rayTracer.traceRay(ray));//Depth(ray)));
+                }
+                imageWriter.writePixel(j, i, avgColor.reduce(beamSize*beamSize));
             }
         });
         return this;
@@ -252,10 +246,10 @@ public class Camera {
 
 
     public Ray Depth(Ray ray) {
-        Point c = ray.getQ0().add(ray.getDir().scale(focalLength));
-        Vector randomVector = new Vector(random(-0.5, 0.5), random(-0.5, 0.5), random(-0.5, 0.5)).scale(focalLength);
-        Point a0 = ray.getQ0().add(randomVector);
-        return new Ray(a0, c.subtract(a0));
+        Point focal = ray.getQ0().add(ray.getDir().scale(focalLength));
+        double randomFloat1 = random(-0.5, 0.5) * apertureSize;
+        Point offset1 = ray.getQ0().add(ray.getDir().scale(randomFloat1));
+        return new Ray(offset1,focal.subtract(offset1));
 
     }
 }
