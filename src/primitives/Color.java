@@ -146,10 +146,11 @@ public class Color {
 
 	@Override
 	public boolean equals(Object o) {
+		int ACC=1;
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Color color = (Color) o;
-		return rgb.equals(color.rgb);
+		return Math.abs(rgb.d1-color.rgb.d1)<=ACC&&Math.abs(rgb.d2-color.rgb.d2)<=ACC&&Math.abs(rgb.d3-color.rgb.d3)<=ACC;
 	}
 
 	@Override

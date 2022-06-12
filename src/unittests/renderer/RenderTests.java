@@ -242,13 +242,14 @@ public class RenderTests {
 */
 		);
 		scene.lights.add(new DirectionalLight(new Color(255, 255, 128), new Vector(-10,20,-15)));
-		Camera camera = new Camera(new Point(5,-20,7.5),new Point(5,5,7.5)
+		Camera camera = new Camera(new Point(-10,-15,15),new Point(5,5,7.5)
 		)
+				.setGridSize(9)
 				.setApt(50)
 				.setFocalLength(500)
 				.setVPDistance(10) //
 				.setVPSize(20, 20) //
-				.setImageWriter(new ImageWriter("Home picture", 500, 500))
+				.setImageWriter(new ImageWriter("Home picture", 1000, 1000))
 				.setRayTracer(new RayTracerBasic(scene));
 		camera.renderImage();
 		camera.writeToImage();
