@@ -155,10 +155,10 @@ public class Camera {
 
         if (adaptiveSampling) {
             List<Point> corners=createSquare(pixelIJ,ratioX,ratioY);
-            Color ruColor = rayTracer.traceRay(new Ray(position, corners.get(UP_RIGHT).subtract(position)));
-            Color luColor = rayTracer.traceRay(new Ray(position, corners.get(UP_LEFT).subtract(position)));
-            Color rdColor = rayTracer.traceRay(new Ray(position, corners.get(DOWN_RIGHT).subtract(position)));
-            Color ldColor = rayTracer.traceRay(new Ray(position, corners.get(DOWN_LEFT).subtract(position)));
+            Color ruColor = Depth(new Ray(position, corners.get(UP_RIGHT).subtract(position)),corners.get(UP_RIGHT));
+            Color luColor = Depth(new Ray(position, corners.get(UP_LEFT).subtract(position)),corners.get(UP_LEFT));
+            Color rdColor = Depth(new Ray(position, corners.get(DOWN_RIGHT).subtract(position)),corners.get(DOWN_RIGHT));
+            Color ldColor = Depth(new Ray(position, corners.get(DOWN_LEFT).subtract(position)),corners.get(DOWN_LEFT));
 
             return adaptiveSampling(pixelIJ, ratioX, ratioY, luColor, ruColor, ldColor, rdColor, adaptiveBeamDepth -1);
         } else
@@ -251,20 +251,20 @@ public class Camera {
             return leftUpColor;
         }else {
             Point right=center.add(vRight.scale(rX/2));
-            Color rightColor=rayTracer.traceRay(new Ray(position,right.subtract(position)));
+            Color rightColor=Depth(new Ray(position,right.subtract(position)),right);
 
             Point left=center.subtract(vRight.scale(rX/2));
-            Color leftColor=rayTracer.traceRay(new Ray(position,left.subtract(position)));
+            Color leftColor=Depth(new Ray(position,left.subtract(position)),left);
 
             Point up=center.add(vUp.scale(rY/2));
-            Color upColor=rayTracer.traceRay(new Ray(position,up.subtract(position)));
+            Color upColor=Depth(new Ray(position,up.subtract(position)),up);
 
             Point down=center.subtract(vUp.scale(rY/2));
-            Color downColor=rayTracer.traceRay(new Ray(position,down.subtract(position)));
+            Color downColor=Depth(new Ray(position,down.subtract(position)),down);
 
             List<Point> squaresCenters=createSquare(center,rX/2,rY/2);
 
-            Color centerColor=rayTracer.traceRay(new Ray(position,center.subtract(position)));
+            Color centerColor=Depth(new Ray(position,center.subtract(position)),center);
             Color lu=adaptiveSampling(squaresCenters.get(UP_LEFT),rX,rY,leftUpColor,upColor,leftColor,centerColor,depth-1);
             Color ru=adaptiveSampling(squaresCenters.get(UP_RIGHT),rX,rY,upColor,rightUpColor,centerColor,rightColor,depth-1);
             Color ld=adaptiveSampling(squaresCenters.get(DOWN_LEFT),rX,rY,leftColor,centerColor,leftDownColor,downColor,depth-1);
