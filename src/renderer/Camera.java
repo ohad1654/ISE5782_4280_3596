@@ -21,8 +21,11 @@ public class Camera {
     private double distance;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
-    private double focalLength;
-    private double apertureSize;
+
+    private boolean depth=false;
+    private double focalLength=0;
+    private double apertureSize=0;
+
     private boolean adaptiveSampling=false;
     private int adaptiveBeamDepth =2;
 
@@ -101,11 +104,15 @@ public class Camera {
 
     public Camera setFocalLength(double focalLength) {
         this.focalLength = focalLength;
+        if (apertureSize!=0)
+            depth=true;
         return this;
     }
 
     public Camera setApt(double apt) {
         this.apertureSize = apt;
+        if (focalLength!=0)
+            depth=true;
         return this;
     }
 
@@ -135,18 +142,18 @@ public class Camera {
 
     public Color constructRaysBeam(int nX, int nY, double j, double i) {
         Point pixelIJ = null;
-        if (adaptiveSampling) {
-            Point VPCenter = position.add(vTo.scale(distance));
-            double ratioY = height / nY;
-            double ratioX = width / nX;
-            double yI = alignZero(-(i - (double) (nY - 1) / 2)) * ratioY;
-            double xJ = alignZero((j - (double) (nX - 1) / 2)) * ratioX;
-            pixelIJ = VPCenter;
-            if (xJ != 0)
-                pixelIJ = pixelIJ.add(vRight.scale(xJ));
-            if (yI != 0)
-                pixelIJ = pixelIJ.add(vUp.scale(yI));
+        Point VPCenter = position.add(vTo.scale(distance));
+        double ratioY = height / nY;
+        double ratioX = width / nX;
+        double yI = alignZero(-(i - (double) (nY - 1) / 2)) * ratioY;
+        double xJ = alignZero((j - (double) (nX - 1) / 2)) * ratioX;
+        pixelIJ = VPCenter;
+        if (xJ != 0)
+            pixelIJ = pixelIJ.add(vRight.scale(xJ));
+        if (yI != 0)
+            pixelIJ = pixelIJ.add(vUp.scale(yI));
 
+        if (adaptiveSampling) {
             List<Point> corners=createSquare(pixelIJ,ratioX,ratioY);
             Color ruColor = rayTracer.traceRay(new Ray(position, corners.get(UP_RIGHT).subtract(position)));
             Color luColor = rayTracer.traceRay(new Ray(position, corners.get(UP_LEFT).subtract(position)));
@@ -155,7 +162,7 @@ public class Camera {
 
             return adaptiveSampling(pixelIJ, ratioX, ratioY, luColor, ruColor, ldColor, rdColor, adaptiveBeamDepth -1);
         } else
-            return rayTracer.traceRay(constructRay(nX, nY, j, i));
+            return Depth(new Ray(position,pixelIJ.subtract(position)),pixelIJ);
 
     }
 
@@ -290,11 +297,18 @@ public class Camera {
     }
 
 
-    public Ray Depth(Ray ray) {
-        Point focal = ray.getQ0().add(ray.getDir().scale(focalLength));
-        double randomFloat1 = random(-0.5, 0.5) * apertureSize;
-        Point offset1 = ray.getQ0().add(ray.getDir().scale(randomFloat1));
-        return new Ray(offset1,focal.subtract(offset1));
-
+    public Color Depth(Ray ray, Point VPPoint) {
+        if (depth){
+            List<Point> corners=createSquare(VPPoint,apertureSize,apertureSize);
+            Point focalPoint=ray.getPoint(focalLength);
+            Color color=Color.BLACK;
+            for (Point point :
+                    corners) {
+                color=color.add(rayTracer.traceRay(new Ray(point,focalPoint.subtract(point))));
+            }
+            return color.reduce(4);
+        }
+        else
+            return rayTracer.traceRay(ray);
     }
 }

@@ -233,7 +233,7 @@ public class RenderTests {
 				new Plane(new Point(0, 0, 0),new Vector(0, 0, 1)).setEmission(new Color(155,244,145).scale(0.5)).setMaterial(new Material().setKd(new Double3(0.2))),
 				createHome(new Point(0,0,0)),
 				//baseBench(new Point(-8,0,0)),
-				baseTree(new Point(-12,50,0),2,new Color(130,70,0).scale(0.5),new Color(110,213,66).scale(0.5))
+				baseTree(new Point(40,20,0),2,new Color(130,70,0).scale(0.5),new Color(110,213,66).scale(0.5))
 				/*,new Circle((centerPool.add(new Vector(0,0,0.00001))),4.7,new Plane(new Point(0, 0, 0.000001),new Vector(0, 0, 1))).setEmission(new Color(9,34,6)).setMaterial(new Material().setKd(new Double3(0.2)).setShininess(100))
 				,new Circle((centerPool.add(new Vector(0,0,0.0001))),4,new Plane(new Point(0, 0, 0.00001),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(15,15,0))).setMaterial(new Material().setKd(new Double3(0.07)).setKs(new Double3(0.8)).setShininess(100).setKr(new Double3(0.2)))
 				,new Circle((centerPool.add(new Vector(0,0,0.0002))),3,new Plane(new Point(0, 0, 0.00002),new Vector(0, 0, 1))).setEmission(colorPool.add(new Color(10,10,0))).setMaterial(new Material().setKd(new Double3(0.04)).setKs(new Double3(0.85)).setShininess(100).setKr(new Double3(0.25)))
@@ -242,12 +242,12 @@ public class RenderTests {
 */
 		);
 		scene.lights.add(new DirectionalLight(new Color(255, 255, 128), new Vector(-10,20,-15)));
-		Camera camera = new Camera(new Point(-10,-15,15),new Point(5,5,7.5)
+		Camera camera = new Camera(new Point(5,-5,20),new Point(5,5,7.5)
 		)
-				.setGridSize(9)
-				.setApt(50)
-				.setFocalLength(500)
-				.setVPDistance(10) //
+				//.setGridSize(9)
+				.setApt(1)
+				.setFocalLength(15)
+				.setVPDistance(5) //
 				.setVPSize(20, 20) //
 				.setImageWriter(new ImageWriter("Home picture", 1000, 1000))
 				.setRayTracer(new RayTracerBasic(scene));
